@@ -11,7 +11,11 @@
     "test": "NODE_ENV=test mocha 'tests/*.spec.js'"
   },
   "author": "",
-  "license": "SAITO"
+  "license": "SAITO",
+  "homepage": "https://saito.tech",
+  "dependencies": {
+    "big.js": "5.1.2"
+  }
 }
 
 
