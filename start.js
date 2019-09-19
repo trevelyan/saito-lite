@@ -11,31 +11,37 @@ var app                   = {};
 //
 global.__webdir = __dirname + "/lib/saito/web/";
 
+
+var events = require('events').EventEmitter;
+var emitter = new events.EventEmitter();
+
 initSaito();
 
 
 async function initSaito() {
+
+  let slip1 = new saito.slip();
+
 
   ////////////////////
   // Load Variables //
   ////////////////////
   try {
 //    app.crypto     = new saito.crypto();
-//    app.connection = new saito.connection();
+    app.connection = new saito.connection();
 //    app.cluster    = new saito.cluster(app);
 //    app.storage    = new saito.storage(app);
 //    app.shashmap   = new saito.shashmap(app);
-//    app.mempool    = new saito.mempool(app);
+    app.mempool    = new saito.mempool(app);
 //    app.voter      = new saito.voter(app);
     app.wallet     = new saito.wallet(app);
 //    app.miner      = new saito.miner(app);
-//    app.monitor    = new saito.monitor(app);
 //    app.browser    = new saito.browser(app);
 //    app.archives   = new saito.archives(app);
 //    app.dns        = new saito.dns(app);
 //    app.keys       = new saito.keychain(app);
     app.network    = new saito.network(app);
-//    app.burnfee    = new saito.burnfee(app);
+    app.burnfee    = new saito.burnfee(app);
 //    app.blockchain = new saito.blockchain(app);
     app.server     = new saito.server(app);
 //    app.modules    = require('./lib/saito/modules')(app, mods);
@@ -48,7 +54,9 @@ async function initSaito() {
     await app.storage.initialize();
     app.voter.initialize();
     app.wallet.initialize();
+*/
     app.mempool.initialize();
+/*
     await app.blockchain.initialize();
     app.keys.initialize();
     app.network.initialize();
