@@ -14,6 +14,14 @@
   "license": "SAITO",
   "homepage": "https://saito.tech",
   "dependencies": {
-    "big.js": "5.1.2"
+    "base-58": "0.0.1",
+    "big.js": "5.1.2",
+    "bitwise-xor": "0.0.0",
+    "crypto-browserify": "^3.12.0",
+    "fastest-stable-stringify": "^2.0.2",
+    "merkle-tree-gen": "^1.1.0",
+    "node-cryptojs-aes": "^0.4.0",
+    "secp256k1": "^3.7.1",
+    "sha256": "^0.2.0"
   }
 }

@@ -11,25 +11,18 @@ var app                   = {};
 //
 global.__webdir = __dirname + "/lib/saito/web/";
 
-
-var events = require('events').EventEmitter;
-var emitter = new events.EventEmitter();
-
 initSaito();
 
 
 async function initSaito() {
-
-  let slip1 = new saito.slip();
 
 
   ////////////////////
   // Load Variables //
   ////////////////////
   try {
-//    app.crypto     = new saito.crypto();
+    app.crypto     = new saito.crypto();
     app.connection = new saito.connection();
-//    app.cluster    = new saito.cluster(app);
 //    app.storage    = new saito.storage(app);
 //    app.shashmap   = new saito.shashmap(app);
     app.mempool    = new saito.mempool(app);
@@ -42,7 +35,7 @@ async function initSaito() {
 //    app.keys       = new saito.keychain(app);
     app.network    = new saito.network(app);
     app.burnfee    = new saito.burnfee(app);
-//    app.blockchain = new saito.blockchain(app);
+    app.blockchain = new saito.blockchain(app);
     app.server     = new saito.server(app);
 //    app.modules    = require('./lib/saito/modules')(app, mods);
 
@@ -50,7 +43,6 @@ async function initSaito() {
     // Initialize //
     ////////////////
 /*
-    app.cluster.initialize();
     await app.storage.initialize();
     app.voter.initialize();
     app.wallet.initialize();
