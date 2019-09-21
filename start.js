@@ -74,7 +74,7 @@ async function initSaito() {
     // server to feed their own subpages
     // as necessary
     //
-//    app.server.initialize();
+    app.server.initialize();
 
 
     if (app.BROWSER == 0) {
