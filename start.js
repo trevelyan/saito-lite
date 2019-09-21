@@ -23,8 +23,8 @@ async function initSaito() {
   try {
     app.crypto     = new saito.crypto();
     app.connection = new saito.connection();
-//    app.storage    = new saito.storage(app);
-//    app.shashmap   = new saito.shashmap(app);
+    app.storage    = new saito.storage(app);
+    app.shashmap   = new saito.shashmap(app);
     app.mempool    = new saito.mempool(app);
 //    app.voter      = new saito.voter(app);
     app.wallet     = new saito.wallet(app);
@@ -42,9 +42,8 @@ async function initSaito() {
     ////////////////
     // Initialize //
     ////////////////
-/*
     await app.storage.initialize();
-    app.voter.initialize();
+/*
     app.wallet.initialize();
 */
     app.mempool.initialize();
