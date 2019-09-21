@@ -43,41 +43,39 @@ async function initSaito() {
     // Initialize //
     ////////////////
     await app.storage.initialize();
-/*
     app.wallet.initialize();
-*/
     app.mempool.initialize();
-/*
-    await app.blockchain.initialize();
-    app.keys.initialize();
-    app.network.initialize();
 
+//    await app.blockchain.initialize();
+//    app.keys.initialize();
+//    app.network.initialize();
+//
     //
     // archives before modules
     //
-    app.archives.initialize();
+//    app.archives.initialize();
     //
     // dns before browser so modules can
     // initialize with dns support
     //
-    app.dns.initialize();
+//    app.dns.initialize();
     //
     // modules pre-initialized before
     // browser, so that the browser
     // can check which application we
     // are viewing.
     //
-    app.modules.pre_initialize();
-    app.browser.initialize();
-    app.modules.initialize();
+//    app.modules.pre_initialize();
+//    app.browser.initialize();
+//    app.modules.initialize();
     //
     // server initialized after modules
     // so that the modules can use the
     // server to feed their own subpages
     // as necessary
     //
-    app.server.initialize();
-*/
+//    app.server.initialize();
+
 
     if (app.BROWSER == 0) {
 
