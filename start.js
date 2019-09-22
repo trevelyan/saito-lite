@@ -26,9 +26,8 @@ async function initSaito() {
     app.storage    = new saito.storage(app);
     app.shashmap   = new saito.shashmap(app);
     app.mempool    = new saito.mempool(app);
-//    app.voter      = new saito.voter(app);
     app.wallet     = new saito.wallet(app);
-//    app.miner      = new saito.miner(app);
+    app.miner      = new saito.miner(app);
 //    app.browser    = new saito.browser(app);
 //    app.archives   = new saito.archives(app);
 //    app.dns        = new saito.dns(app);
