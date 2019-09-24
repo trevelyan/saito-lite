@@ -11,11 +11,13 @@ var app                   = {};
 //
 global.__webdir = __dirname + "/lib/saito/web/";
 
+
+console.log("HERE WITH INIT SAITO!");
 initSaito();
+console.log("POST INIT SAITO!");
 
 
 async function initSaito() {
-
 
   ////////////////////
   // Load Variables //
@@ -28,7 +30,7 @@ async function initSaito() {
     app.mempool    = new saito.mempool(app);
     app.wallet     = new saito.wallet(app);
     app.miner      = new saito.miner(app);
-//    app.browser    = new saito.browser(app);
+    app.browser    = new saito.browser(app);
 //    app.archives   = new saito.archives(app);
 //    app.dns        = new saito.dns(app);
 //    app.keys       = new saito.keychain(app);
