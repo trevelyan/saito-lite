@@ -45113,7 +45113,9 @@ app.GENESIS_PUBLICKEY = "npDwmBDQafC148AyhqeEBMshHyzJww3X777W9TM3RYNv"; //
 //
 
 global.__webdir = __dirname + "/lib/saito/web/";
+console.log("HERE WITH INIT SAITO!");
 initSaito();
+console.log("HERE WITH INIT SAITO 2!");
 
 async function initSaito() {
   ////////////////////

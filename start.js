@@ -11,7 +11,9 @@ var app                   = {};
 //
 global.__webdir = __dirname + "/lib/saito/web/";
 
+console.log("HERE WITH INIT SAITO!");
 initSaito();
+console.log("HERE WITH INIT SAITO 2!");
 
 
 async function initSaito() {
