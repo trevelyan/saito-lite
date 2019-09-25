@@ -1366,6 +1366,113 @@ class Blockchain {
     }
   }
 
+  returnLastSharedBlockId(fork_id, latest_known_block_id) {
+    // if there is no fork_id submitted, we backpedal 1 block to be safe
+    if (fork_id == null || fork_id == "") {
+      return 0;
+    }
+
+    if (fork_id.length < 2) {
+      if (latest_known_block_id > 0) {
+        latest_known_block_id - 1;
+      } else {
+        return 0;
+      }
+    } // roll back latest known block id to known fork ID measurement point
+
+
+    for (let x = latest_known_block_id; x >= 0; x--) {
+      if (x % this.fork_id_mod == 0) {
+        latest_known_block_id = x;
+        x = -1;
+      }
+    }
+
+    let our_latest_bid = this.last_bid; // roll back until we have a match
+
+    for (let fii = 0; fii < fork_id.length / 2; fii++) {
+      var peer_fork_id_pair = fork_id.substring(2 * fii, 2 * fii + 2);
+      var our_fork_id_pair_blockid = latest_known_block_id;
+
+      if (fii == 0) {
+        our_fork_id_pair_blockid = latest_known_block_id - 0;
+      }
+
+      if (fii == 1) {
+        our_fork_id_pair_blockid = latest_known_block_id - 10;
+      }
+
+      if (fii == 2) {
+        our_fork_id_pair_blockid = latest_known_block_id - 20;
+      }
+
+      if (fii == 3) {
+        our_fork_id_pair_blockid = latest_known_block_id - 30;
+      }
+
+      if (fii == 4) {
+        our_fork_id_pair_blockid = latest_known_block_id - 40;
+      }
+
+      if (fii == 5) {
+        our_fork_id_pair_blockid = latest_known_block_id - 50;
+      }
+
+      if (fii == 6) {
+        our_fork_id_pair_blockid = latest_known_block_id - 75;
+      }
+
+      if (fii == 7) {
+        our_fork_id_pair_blockid = latest_known_block_id - 100;
+      }
+
+      if (fii == 8) {
+        our_fork_id_pair_blockid = latest_known_block_id - 200;
+      }
+
+      if (fii == 9) {
+        our_fork_id_pair_blockid = latest_known_block_id - 500;
+      }
+
+      if (fii == 10) {
+        our_fork_id_pair_blockid = latest_known_block_id - 1000;
+      }
+
+      if (fii == 11) {
+        our_fork_id_pair_blockid = latest_known_block_id - 5000;
+      }
+
+      if (fii == 12) {
+        our_fork_id_pair_blockid = latest_known_block_id - 10000;
+      }
+
+      if (fii == 13) {
+        our_fork_id_pair_blockid = latest_known_block_id - 50000;
+      }
+
+      if (our_latest_bid < our_fork_id_pair_blockid) {} else {
+        // return hash by blockid
+        var tmpklr = this.returnHashByBlockId(our_fork_id_pair_blockid); // if we have not found a match, return 0 since we have
+        // irreconciliable forks, so we just give them everything
+        // in the expectation that one of our forks will eventually
+        // become the longest chain
+
+        if (tmpklr == "") {
+          return 0;
+        }
+
+        var our_fork_id_pair = tmpklr.substring(0, 2); // if we have a match in fork ID at a position, treat this
+        // as the shared forkID
+
+        if (our_fork_id_pair == peer_fork_id_pair) {
+          return our_fork_id_pair_blockid;
+        }
+      }
+    }
+
+    return 0;
+  }
+
   updateForkId(blk) {
     if (blk == null) {
       return this.fork_id;
@@ -3515,6 +3622,7 @@ class Path {
 module.exports = Path;
 
 },{}],12:[function(require,module,exports){
+(function (process){
 const io = require('socket.io-client');
 
 const saito = require('./saito');
@@ -3529,6 +3637,11 @@ class Peer {
     this.peer.protocol = "http";
     this.peer.synctype = "full"; // full = full blocks
 
+    this.peer.initiator = 0; // default non-initiator
+
+    this.peer.receiveblks = 1;
+    this.peer.receivetxs = 1;
+    this.peer.receivegts = 1;
     this.peer.sendblks = 1;
     this.peer.sendtxs = 1;
     this.peer.sendgts = 1;
@@ -3540,7 +3653,7 @@ class Peer {
     this.peer.endpoint.publickey = "";
     this.peer.endpoint.protocol = "http";
     this.peer.keylist = [];
-    this.peer.handshake = returnHandshake(); //
+    this.handshake = this.returnHandshake(); //
     // queue to prevent flooding
     //
 
@@ -3605,9 +3718,44 @@ class Peer {
     handshake.ts = new Date().getTime();
     handshake.attempts = 0;
     handshake.complete = 0;
-    handshake.challenge_mine = "";
+    handshake.challenge_mine = Math.random();
     handshake.challenge_peer = "";
-    handshake.verified = 0;
+    handshake.challenge_proof = "";
+    handshake.challenge_verified = 0;
+    handshake.peer = {}; // my info
+
+    handshake.peer.host = "";
+    handshake.peer.port = "";
+    handshake.peer.protocol = "";
+    handshake.peer.endpoint = {};
+    handshake.peer.publickey = this.app.wallet.returnPublicKey();
+    handshake.peer.synctype = "full";
+    handshake.peer.sendblks = 1;
+    handshake.peer.sendtxs = 1;
+    handshake.peer.sendgts = 1;
+    handshake.peer.keylist = [];
+    handshake.blockchain = {};
+    handshake.blockchain.last_bid = this.app.blockchain.last_bid;
+    handshake.blockchain.last_ts = this.app.blockchain.last_ts;
+    handshake.blockchain.last_bsh = this.app.blockchain.last_bsh;
+    handshake.blockchain.last_bf = this.app.blockchain.last_bf;
+    handshake.blockchain.fork_id = this.app.blockchain.fork_id;
+    handshake.blockchain.genesis_bid = this.app.blockchain.genesis_bid;
+
+    if (this.app.server) {
+      handshake.peer.endpoint = this.app.server.server.endpoint;
+    } //handshake.peer.keylist = this.app.keys.returnWatchedPublicKeys();
+
+
+    handshake.peer.keylist.push(this.app.wallet.returnPublicKey());
+
+    if (this.app.BROWSER == 0) {
+      handshake.peer.host = this.app.options.server.host;
+      handshake.peer.port = this.app.options.server.port;
+      handshake.peer.protocol = this.app.options.server.protocol;
+    }
+
+    return handshake;
   }
 
   connect(mode = 0) {
@@ -3616,6 +3764,7 @@ class Peer {
     //
     if (mode == 0) {
       console.log("Generating outbound connection request...");
+      this.peer.initiator = 1;
 
       if (this.socket) {
         try {
@@ -3643,6 +3792,7 @@ class Peer {
 
     if (mode == 1) {
       console.log("Incoming connection request, handshake getting initialized...");
+      this.addSocketEvents();
     }
   }
 
@@ -3673,9 +3823,9 @@ class Peer {
 
     if (this.socket != null) {
       if (this.socket.connected == true) {
-        this.socket.emit('request', JSON.stringify(userMessage));
+        this.socket.emit('request', JSON.stringify(um));
       } else {
-        this.message_queue.push(JSON.stringify(userMessage));
+        this.message_queue.push(JSON.stringify(um));
         return;
       }
     }
@@ -3689,6 +3839,13 @@ class Peer {
       // connect
       //
       this.socket.on('connect', () => {
+        //
+        // initiate handshake
+        //
+        this.handshake.step = 1;
+        this.handshake.ts = new Date().getTime();
+        this.handshake.attempts++;
+        this.sendRequest("handshake", this.handshake);
         console.log("socket connection has fired!"); //
         // inform event channel
         //
@@ -3703,7 +3860,7 @@ class Peer {
       //
 
       this.socket.on('disconnect', () => {
-        this.app.connection.emit('connection_dropped');
+        this.app.connection.emit('connection_down');
         this.app.connection.emit('peer_disconnect', this);
       }); //
       // non-saito events
@@ -3719,7 +3876,8 @@ class Peer {
           return;
         }
 
-        let message = JSON.parse(data.toString()); //
+        let message = JSON.parse(data.toString());
+        console.log("RECEIVED: " + data.toString()); //
         // module callback
         //
         //try {
@@ -3732,12 +3890,13 @@ class Peer {
         //}
 
         switch (message.request) {
+          case 'handshake':
+            this.handleHandshakeRequest(message);
+            break;
+
           /*
                     case 'offchain':
                       this.handleOffchainRequest();
-                      break;
-                    case 'handshake':
-                      this.handleHandshakeRequest(message);
                       break;
                     case 'connect-sig':
                       this.handleConnectSigRequest(message);
@@ -3788,6 +3947,7 @@ class Peer {
                       this.handleModuleRequest(message, mycallback);
                       break;
           */
+
           default:
             //if (mycallback != null) {
             //  mycallback();
@@ -3798,6 +3958,138 @@ class Peer {
     } catch (err) {
       console.error("ERROR 581023: error handling peer request - " + err);
     }
+  }
+
+  handleHandshakeRequest(message) {
+    console.log("\n\n\n\nRECEIVED HS MESSAGE: " + JSON.stringify(message) + "\n\n\n\n");
+    let peershake = message.data;
+
+    if (this.handshake.attempts > 10) {} //
+    // TODO - give up on pointlessly bad connection (!)
+    //
+    //
+    // basic peer data
+    //
+
+
+    this.peer.receiveblks = peershake.sendblks;
+    this.peer.receivetxs = peershake.sendtxs;
+    this.peer.receivegts = peershake.sendgtx;
+
+    if (this.peer.publickey == "") {
+      this.peer.publickey = peershake.peer.publickey;
+    }
+
+    this.peer.host = peershake.peer.host;
+    this.peer.port = peershake.peer.port;
+    this.peer.protocol = peershake.peer.protocol;
+    this.peer.synctype = peershake.peer.synctype;
+    this.peer.endpoint = peershake.peer.endpoint;
+    this.peer.keylist = peershake.peer.keylist; //
+    // verification sigs
+    //
+
+    if (this.handshake.challenge_proof == "" && peershake.challenge_mine != "") {
+      this.handshake.challenge_peer = peershake.challenge_mine;
+      this.handshake.challenge_proof = this.app.crypto.signMessage("_" + this.handshake.challenge_peer, this.app.wallet.returnPrivateKey());
+    }
+
+    if (this.handshake.challenge_mine != "" && peershake.challenge_proof != "" && this.handshake.challenge_verified == 0) {
+      if (this.app.crypto.verifyMessage("_" + this.handshake.challenge_mine, peershake.challenge_proof, this.peer.publickey) == 0) {} else {
+        this.handshake.challenge_verified = 1;
+      }
+    } //
+    // check blockchain
+    //
+
+
+    let peer_last_bid = peershake.blockchain.last_bid;
+    let peer_forkid = peershake.blockchain.fork_id;
+    let peer_genesis_bid = peershake.blockchain_genesis_bid; // 
+    // if peer is ahead of me, let modules know latest block
+    //
+
+    let my_last_bid = this.app.blockchain.last_bid; //
+    // TODO
+    //
+    // progress bar 
+    //
+    //if (peer_last_bid > my_last_bid) {
+    //  this.app.options.blockchain.target_bid = peer_last_bid;
+    //  this.app.modules.updateBlockchainSync(my_last_bid, peer_last_bid);
+    //} else {
+    //  this.app.modules.updateBlockchainSync(my_last_bid, my_last_bid);
+    //}
+    //
+    // figure out last common block
+    //
+
+    let last_shared_bid = this.app.blockchain.returnLastSharedBlockId(peer_forkid, peer_last_bid);
+
+    if (my_last_bid > last_shared_bid) {
+      if (peer_last_bid - my_last_bid > this.app.blockchain.genesis_period && peer_last_bid != 0 && this.peer.synctype == "full") {
+        //
+        // TODO - don't exit - fully off chain
+        //
+        console.log("ERROR 184023: peer reports us as fully off-chain with same gp");
+        process.exit();
+      } else {
+        //
+        // if our remote peer is behind us
+        //
+        if (this.app.BROWSER == 0 && peer_last_bid < my_last_bid) {
+          //
+          // lite-client -- even if last_shared_bid is 0 because the
+          // fork_id situation is wrong, we will send them everything
+          // from the latest block they request -- this avoids lite-clients
+          // that pop onto the network but do not stick around long-enough
+          // to generate a fork ID from being treated as new lite-clients
+          // and only sent the last 10 blocks.
+          //
+          if (last_shared_bid == 0 && peer_last_bid > 0 && peer_last_bid - last_shared_bid > 9) {
+            if (peer_last_bid - 10 < 0) {
+              peer_last_bid = 0;
+            } else {
+              peer_last_bid = peer_last_bid - 10;
+            }
+
+            this.sendBlockchain(peer_last_bid, message.data.synctype);
+          } else {
+            this.sendBlockchain(last_shared_bid, message.data.synctype);
+          }
+        } else {//
+          // peer ahead of us
+          //
+        }
+      }
+    }
+
+    console.log(this.handshake.step + " -- " + peershake.step); //
+    // increment a step and fire back our handshake if step <= 3
+    //
+
+    if (this.handshake.step >= peershake.step) {
+      this.handshake.attempts++;
+    }
+
+    if (this.handshake.step < 3) {
+      this.handshake.step = peershake.step + 1;
+      this.sendRequest("handshake", this.handshake);
+    }
+  }
+
+  sendBlockchain(start_bid, synctype) {
+    if (start_bid == 0) {
+      let block_gap = synctype == "full" ? this.app.blockchain.genesis_period : 10;
+      start_bid = this.app.blockchain.last_bid - block_gap;
+
+      if (start_bid < 0) {
+        start_bid = 0;
+      }
+    }
+
+    console.log("Sending the Blockchain from start_bid: " + start_bid);
+    return;
   }
 
   inTransactionPath(tx) {
@@ -3834,7 +4126,8 @@ class Peer {
 
 module.exports = Peer;
 
-},{"./saito":13,"socket.io-client":250}],13:[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./saito":13,"_process":208,"socket.io-client":250}],13:[function(require,module,exports){
 const saito = exports; // Core
 //saito.archives       = require('./archives');
 
@@ -45128,8 +45421,8 @@ async function initSaito() {
     app.shashmap = new saito.shashmap(app);
     app.mempool = new saito.mempool(app);
     app.wallet = new saito.wallet(app);
-    app.miner = new saito.miner(app); //    app.browser    = new saito.browser(app);
-    //    app.archives   = new saito.archives(app);
+    app.miner = new saito.miner(app);
+    app.browser = new saito.browser(app); //    app.archives   = new saito.archives(app);
     //    app.dns        = new saito.dns(app);
     //    app.keys       = new saito.keychain(app);
 
@@ -45145,8 +45438,8 @@ async function initSaito() {
     app.wallet.initialize();
     app.mempool.initialize(); //    await app.blockchain.initialize();
     //    app.keys.initialize();
-    //    app.network.initialize();
-    //
+
+    app.network.initialize(); //
     //
     // archives before modules
     //

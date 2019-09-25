@@ -30,7 +30,7 @@ async function initSaito() {
     app.mempool    = new saito.mempool(app);
     app.wallet     = new saito.wallet(app);
     app.miner      = new saito.miner(app);
-//    app.browser    = new saito.browser(app);
+    app.browser    = new saito.browser(app);
 //    app.archives   = new saito.archives(app);
 //    app.dns        = new saito.dns(app);
 //    app.keys       = new saito.keychain(app);
@@ -49,7 +49,7 @@ async function initSaito() {
 
 //    await app.blockchain.initialize();
 //    app.keys.initialize();
-//    app.network.initialize();
+    app.network.initialize();
 //
     //
     // archives before modules
