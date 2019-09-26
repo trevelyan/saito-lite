@@ -35,7 +35,7 @@ Data storage is also thrust unapologetically into the hands of volunteers. BSV a
 As these networks scale, the costs to volunteers necessarily rises, pushing these networks towards technical non-solutions (lite-clients!) that decrease the cost burden on some users while shifting costs to volunteers elsewhere in the system. But they cannot do otherwise: miners are stakers are strictly incentivized to fund their revenue-earning function. At best these networks can create insecure subsidy mechanisms controlled by developers, or complicated systems with multiple payments to multiple parties and entire classes of attacks on their artificial pricing mechanism. 
 
 
-**SAITO GUARANTEES THAT ALL NODES ARE PAID FOR THE VALUE THEY CONTRIBUTE**
+**SAITO GUARANTEES THAT ALL NODES ARE PAID FOR THEIR VALUE**
 
 Saito introduces and has patented the technique of adding cryptographic signatures to blockchains on their network layer. This allows the consensus mechanism to measure the actual value that routing nodes provide to the network. This is used to pay them in proportion to the value they contribute to the network: there is no need for volunteers in the businesses that connect to users or those that form part of the routing network.
 
@@ -49,7 +49,7 @@ This last point is a major point of departure from conventional blockchain econo
 
 The vast majority of "application blockchains" under development are smart-contract platforms. These systems introduce coordination problems (through sharding), network bloat (through their inability to incentivize data storage), monopolization (through their lack of funding for API access points) and add sharp limits to the scalability of the underlying blockchain as computers in the network need to spend CPU cycles to maintain program state.
 
-**Saito changes the problem to Eliminating Bloat on the Network Layer**
+**SAITO SIMPLIFIED APPLICATIONS AND ELIMINATES BLOAT**
 
 Saito is a pure-play PKI network. Users send transactions into the network, which broadcasts their data to all recipients. Developers build applications on the edge of the network, much like in the traditional Internet. Appllications can maintain consensus simply by tracking the data broadcast on the data-layer, making it possible to program smart contract systems and meta-blockchains. Upgrading these networks is as simply as upgrading a software module.
 
