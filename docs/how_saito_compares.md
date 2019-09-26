@@ -49,7 +49,7 @@ The vast majority of "application blockchains" under development are smart-contr
 
 **SAITO SIMPLIFIED APPLICATIONS AND ELIMINATES BLOAT**
 
-Saito is a pure-play PKI network. Users send transactions into the network, which broadcasts their data to all recipients. Developers build applications on the edge of the network, much like in the traditional Internet. Appllications can maintain consensus simply by tracking the data broadcast on the data-layer, making it possible to program smart contract systems and meta-blockchains. Upgrading these networks is as simply as upgrading a software module.
+Saito is a pure-play PKI network. Users send transactions into the network, which broadcasts their data to all recipients. Developers build applications on the edge of the network, much like in the traditional Internet. Applications can maintain consensus simply by tracking the data broadcast on the data-layer, making it possible to program smart contract systems and meta-blockchains. Upgrading these networks is as simply as upgrading a software module.
 
 Saito's approach eliminates bloat on the network layer. The protocol is as simple as possible: a UTXO set that can be spent to pass signed byte-arrays to peers. What the computers on the edge of the network do with this data is not a concern of the blockchain, which concerns itself with economic efficiency and self-sustainable economics. Scaling problems associated with smart contracts fall away as there is no need for all of the computers in the network to process every transaction. Sharding is possible and simpler to implement.
 
