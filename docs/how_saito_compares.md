@@ -5,9 +5,9 @@ Saito is a fundamentally new class of blockchain. The differences start with the
 
 ## 1. PROBLEM ONE
 
-Other Blockchains focus on...
+### Other Blockchains focus on... 
 
-How to Make Block Production Difficulty:
+*How to Make Block Production Difficulty:*
 
 Proof-of-work (POW) and proof-of-stake (POS) blockchains make block production difficult and give all of their funds to the block producer. Attackers who can buy or rent 50 percent of the "work" needed to produce blocks can collect up to 100 percent of network revenue, or even more if they are willing to launch double-spending attacks.
 
