@@ -13,7 +13,7 @@ In consensus systems like Tendermint where validators determine which blocks are
 Making matters worse, the techniques these networks use to make attacks "difficult" rely on markets (for hashpower or capital) which exist outside the control of the blockchain. Not only does this make most networks susceptible to basic economic attacks (see "discouragement attacks" etc.), but the existence of the blockchain itself incentivizes the commoditization of the supply curve for the block-production resource. Economic forces unleashed by the blockchain undermine its security over the long-run.
 
 
-**Saito changes the problem to Guaranteeing Attacks are Expensive**
+<span style="background-color: yellow">**Saito changes the problem to Guaranteeing Attacks are Expensive**</span>
 
 Saito recognizes that all forms of "difficulty" are reducible to economics. This is why it solves a different problem: guaranteeing that it is always expensive to produce blocks. The network accomplishes this by separating the block reward from the block producer and using a provably-fair lottery to reward nodes in proportion to the amount of money they collect for the network. Honest nodes get paid by processing user transactions. Attackers have to spend their own money.
 
