@@ -1,4 +1,4 @@
-# How Saito Compares
+# A Paradigm Shift in Blockchain
 
 Saito is a fundamentally new class of blockchain. The differences start with the problems Saito solves.
 
@@ -13,7 +13,7 @@ In consensus systems like Tendermint where validators determine which blocks are
 Making matters worse, the techniques these networks use to make attacks "difficult" rely on markets (for hashpower or capital) which exist outside the control of the blockchain. Not only does this make most networks susceptible to basic economic attacks (see "discouragement attacks" etc.), but the existence of the blockchain itself incentivizes the commoditization of the supply curve for the block-production resource. Economic forces unleashed by the blockchain undermine its security over the long-run.
 
 
-<span style="background-color: yellow">**Saito changes the problem to Guaranteeing Attacks are Expensive**</span>
+**SAITO GUARANTEES THAT ATTACKS ARE ALWAYS EXPENSIVE**
 
 Saito recognizes that all forms of "difficulty" are reducible to economics. This is why it solves a different problem: guaranteeing that it is always expensive to produce blocks. The network accomplishes this by separating the block reward from the block producer and using a provably-fair lottery to reward nodes in proportion to the amount of money they collect for the network. Honest nodes get paid by processing user transactions. Attackers have to spend their own money.
 
@@ -35,7 +35,7 @@ Data storage is also thrust unapologetically into the hands of volunteers. BSV a
 As these networks scale, the costs to volunteers necessarily rises, pushing these networks towards technical non-solutions (lite-clients!) that decrease the cost burden on some users while shifting costs to volunteers elsewhere in the system. But they cannot do otherwise: miners are stakers are strictly incentivized to fund their revenue-earning function. At best these networks can create insecure subsidy mechanisms controlled by developers, or complicated systems with multiple payments to multiple parties and entire classes of attacks on their artificial pricing mechanism. 
 
 
-**Saito changes the problem to Paying every Node that Contributes Value**
+**SAITO GUARANTEES THAT ALL NODES ARE PAID FOR THE VALUE THEY CONTRIBUTE**
 
 Saito introduces and has patented the technique of adding cryptographic signatures to blockchains on their network layer. This allows the consensus mechanism to measure the actual value that routing nodes provide to the network. This is used to pay them in proportion to the value they contribute to the network: there is no need for volunteers in the businesses that connect to users or those that form part of the routing network.
 
