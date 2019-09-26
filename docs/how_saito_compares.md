@@ -1,8 +1,6 @@
 # A Paradigm Shift in Blockchain
 
-Saito is a fundamentally new class of blockchain. The differences start with the problems Saito solves.
-
-### Other Blockchains focus on... 
+Saito is a fundamentally new class of blockchain. The differences start with the problems Saito solves. Other blockchains focus on...
 
 ## 1. How to Make Block Production Difficulty...
 
