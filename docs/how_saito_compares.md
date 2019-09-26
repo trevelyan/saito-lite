@@ -1,13 +1,10 @@
 # How Saito Compares
 
-Saito is a fundamentally new class of blockchain. The differences start with the problems Saito solves. This document describes some of these important differences.
-
-
-## 1. PROBLEM ONE
+Saito is a fundamentally new class of blockchain. The differences start with the problems Saito solves.
 
 ### Other Blockchains focus on... 
 
-*How to Make Block Production Difficulty:*
+## 1. How to Make Block Production Difficulty...
 
 Proof-of-work (POW) and proof-of-stake (POS) blockchains make block production difficult and give all of their funds to the block producer. Attackers who can buy or rent 50 percent of the "work" needed to produce blocks can collect up to 100 percent of network revenue, or even more if they are willing to launch double-spending attacks.
 
@@ -16,9 +13,7 @@ In consensus systems like Tendermint where validators determine which blocks are
 Making matters worse, the techniques these networks use to make attacks "difficult" rely on markets (for hashpower or capital) which exist outside the control of the blockchain. Not only does this make most networks susceptible to basic economic attacks (see "discouragement attacks" etc.), but the existence of the blockchain itself incentivizes the commoditization of the supply curve for the block-production resource. Economic forces unleashed by the blockchain undermine its security over the long-run.
 
 
-Saito focuses on:
-
-How to Guarantee Attacks are Expensive:
+## ... Saito solves How to Guarantees Attacks are Expensive:
 
 Saito recognizes that all forms of "difficulty" are reducible to economics. This is why it solves a different problem: guaranteeing that it is always expensive to produce blocks. The network accomplishes this by separating the block reward from the block producer and using a provably-fair lottery to reward nodes in proportion to the amount of money they collect for the network. Honest nodes get paid by processing user transactions. Attackers have to spend their own money.
 
@@ -31,11 +26,7 @@ Guaranteeing that attacks are always expensive eliminates 51 percent attacks and
 
 
 
-## 2. PROBLEM TWO
-
-Other Blockchains focus on...
-
-How to Hide the Volunteers in their Systems
+## 2. How to Hide the Volunteers in their Systems
 
 All non-Saito blockchains have volunteers hidden in their systems. They have volunteers hidden in the form of the businesses which collect transactions from users but somehow never think to sell that transaction flow to block producers. Volunteers in their peer-to-peer network must prevent block producers from hoarding or censoring transactions. POS implementations that pay block producers need volunteer validators to keep them in-line. POS implementations that pay validators need volunteers to propose blocks.
 
@@ -44,9 +35,7 @@ Data storage is also thrust unapologetically into the hands of volunteers. BSV a
 As these networks scale, the costs to volunteers necessarily rises, pushing these networks towards technical non-solutions (lite-clients!) that decrease the cost burden on some users while shifting costs to volunteers elsewhere in the system. But they cannot do otherwise: miners are stakers are strictly incentivized to fund their revenue-earning function. At best these networks can create insecure subsidy mechanisms controlled by developers, or complicated systems with multiple payments to multiple parties and entire classes of attacks on their artificial pricing mechanism. 
 
 
-Saito focuses on:
-
-  How to Pay every Node that Contributes Value
+## ... Saito solves How to Pay every Node that Contributes Value
 
 Saito introduces and has patented the technique of adding cryptographic signatures to blockchains on their network layer. This allows the consensus mechanism to measure the actual value that routing nodes provide to the network. This is used to pay them in proportion to the value they contribute to the network: there is no need for volunteers in the businesses that connect to users or those that form part of the routing network.
 
