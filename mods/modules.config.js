@@ -1,3 +1,4 @@
 module.exports = [
-  'faucet/core/index.js'
+  'wallet/wallet.js'
+//  'faucet/core/index.js'
 ]

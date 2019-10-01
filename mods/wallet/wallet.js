@@ -1,6 +1,3 @@
-//
-// Our wallet is now a module...
-//
 var saito = require('../../lib/saito/saito');
 var ModTemplate = require('../../lib/templates/modtemplate.js');
 
@@ -9,6 +6,7 @@ var ModTemplate = require('../../lib/templates/modtemplate.js');
 // CONSTRUCTOR  //
 //////////////////
 class Wallet extends ModTemplate {
+
   constructor(app) {
     super();
 
@@ -56,6 +54,8 @@ class Wallet extends ModTemplate {
 
 
   onConfirmation(blk, tx, conf, app) {
+
+console.log("\n\n\nON CONFIRMATION IN WALLET MODULE\n\n\n");
 
     let slips 		= tx.returnSlipsToAndFrom(app.wallet.returnPublicKey());
     let to_slips  	= slips.to;
@@ -165,4 +165,12 @@ class Wallet extends ModTemplate {
   }
 
 
+  shouldAffixCallbackToModule(module_name) {
+    return 1;
+  }
+
+}
+
+
 module.exports = Wallet;
+
