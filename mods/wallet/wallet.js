@@ -28,21 +28,6 @@ util.inherits(Wallet, ModTemplate);
 
 
 
-
-    sql4     = "INSERT INTO mod_advert_adverts (publickey, adfile, views, link, width, height) VALUES ($publickey, $adfile, 0, $link, 300, 250)";
-    params4  = {
-      $publickey : advert_self.app.wallet.returnPublicKey(),
-      $adfile    : "30.png",
-      $link      : "http://org.saito.tech"
-    };
-    advert_self.app.storage.execDatabase(sql4, params4, function() {});
-
-
-
-
-
-
-
 Wallet.prototype.onChainReorganization = function onChainReorganization(bid, bsh, lc) {
 
   if (lc == 1) {
