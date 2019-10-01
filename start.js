@@ -1,4 +1,7 @@
-const saito = require('./lib/saito/saito');
+const saito = require('./lib/saito/saito.js');
+
+const server = require('./core/server.js');
+const storage = require('./core/storage.js');
 
 var app                   = {};
     app.BROWSER           = 0;
@@ -25,7 +28,7 @@ async function initSaito() {
   try {
     app.crypto     = new saito.crypto();
     app.connection = new saito.connection();
-    app.storage    = new saito.storage(app);
+    app.storage    = new storage(app);
     app.shashmap   = new saito.shashmap(app);
     app.mempool    = new saito.mempool(app);
     app.wallet     = new saito.wallet(app);
@@ -37,8 +40,11 @@ async function initSaito() {
     app.network    = new saito.network(app);
     app.burnfee    = new saito.burnfee(app);
     app.blockchain = new saito.blockchain(app);
-    app.server     = new saito.server(app);
-//    app.modules    = require('./lib/saito/modules')(app, mods);
+
+    // We need an external way to load modules and server
+    // app.server     = new saito.server(app);
+    app.server     = new server(app);
+    //    app.modules    = require('./lib/saito/modules')(app, mods);
 
     ////////////////
     // Initialize //

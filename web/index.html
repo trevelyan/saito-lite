@@ -1,111 +1,36 @@
-<html>
-<head>
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Testing out PWAs and the like">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Stephen Peterkins">
 
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="">
-  <meta name="author" content="">
+    <link rel="stylesheet" href="/font-awesome-5/css/all.css" type="text/css" media="screen" />
+    <link rel="manifest" href="manifest.json">
 
-  <title>Saito: Welcome</title>
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="Saito">
+    <meta name="apple-mobile-web-app-title" content="Saito">
+    <meta name="theme-color" content="#FFFFFF">
+    <meta name="msapplication-navbutton-color" content="#FFFFFF">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="msapplication-starturl" content="/index.html">
+    
+    <link rel="icon" sizes="192x192" href="/img/touch/pwa-192x192.png">
+    <link rel="apple-touch-icon" sizes="192x192" href="/img/touch/pwa-192x192.png">
+    <link rel="icon" sizes="512x512" href="/img/touch/pwa-512x512.png">
+    <link rel="apple-touch-icon" sizes="512x512" href="/img/touch/pwa-512x512.png">
 
-  <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,800italic,700italic,600italic,400italic,300italic,800,700,600' rel='stylesheet' type='text/css'>
-
-  <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css" type="text/css" media="screen" />
-  <link rel="stylesheet" href="/lib/font-awesome-5/css/fontawesome.min.css" type="text/css" media="screen" />
-
-  <script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
-  <link rel="stylesheet" href="/lib/jquery/jquery-ui.min.css" type="text/css" media="screen" />
-  <script type="text/javascript" src="/lib/jquery/jquery-ui.min.js"></script>
-
-  <script type="text/javascript" src="/lib/hammer/hammer.min.js"></script>
-
-  <link rel="stylesheet" type="text/css" href="style.css" />
-
-
-  <link rel="icon" media="all" type="image/x-icon" href="/favicon.ico?v=2"/>
-
-</head>
-<body>
-  <div class="index-container">
-  <div class="header">
-    <a href="/" class="logo_link">
-      <img src="/img/saito_logo_black.png" class="logo" />
-      <div class="network_status">
-        NETWORK STATS: [ latest block: <span id="saito_latest_block">410323</span> ] &nbsp; [ blocktime: <span id="saito_blocktime">30 seconds</span> ] &nbsp; [ block cost: <span id="saito_burnfee">2.0</span> ]&nbsp; [ difficulty: <span id="saito_difficulty">0.5</span> ]&nbsp; [ paysplit: <span id="saito_paysplit">0.7534</span> ]
-      </div>
-    </a>
-  </div>
-
-  <div id="Welcome_browser_active"></div>
-
-  <div class="loader">Loading Saito Control Panel...</div>
-
-  <div class="main" style="display:none;">
-
-    <div class="content">
-
-      <div class="section_header">ACCOUNT</div>
-
-      <div class="account_text">
-        <table>
-          <tr>
-            <td class="h">EMAIL</td>
-            <td class="c" id="saito_email">david@saito</td>
-          </tr>
-          <tr>
-            <td class="h">ADDRESS</td>
-            <td class="c" id="saito_address">jUFMAUTu1o7uu3Ywgg1d23QDLLexnjUcsT5QDxSSfG7X</td>
-          </tr>
-          <tr>
-            <td class="h">BALANCE</td>
-            <td class="c"><span id="saito_balance">100.0</span> SAITO</td>
-          </tr>
-        </table>
-      </div>
-
-
-      <div class="buttons">
-        <div class="orange_button" id="backup_wallet">backup</div>
-        <div class="orange_button" id="restore_wallet">restore</div>
-        <div class="orange_button" id="reset">reset</div>
-        <div class="orange_button" id="disable_ads">disable ads</div>
-      </div>
-
-
-      <div>
-        <div class="section_header">RUN APPLICATION:</div>
-
-        <ul class="mod-list">
-          <li id="Email"><a href="/email">Saito Email</a></li>
-          <li id="Arcade"><a href="/arcade">Saito Arcade</a></li>
-          <li id="Chat"><a href="/chat">Saito Chat</a></li>
-          <li id="Reddit"><a href="/r/">Saito Reddit</a></li>
-          <li id="Facebook"><a href="/facebook">Saito Facebook</a></li>
-          <li id="AppStore"><a href="/appstore">Saito AppStore</a></li>
-          <li id="Remix"><a href="/remix">Module Builder</a></li>
-          <li id="Adsense"><a href="/adsense">Saito Ad Network</a></li>
-          <li id="Faucet"><a href="/faucet">Token Faucet</a></li>
-          <li id="Explorer"><a href="/explorer">Blockchain Explorer</a></li>
-        </ul>
-
-
-        <input id="file-input" class="file-input" type="file" name="name" style="display:none;" />
-
-      </div>
-    </div>
-
-    <div class="ads">
-      <div class="advert-300-250" id="advert-300-250"></div>
-    </div>
-
-  </div>
-  </div>
-</div>
-
-<script src="/socket.io/socket.io.js"></script>
-<script src="/browser.js"></script>
-
-</body>
+    <title>Saito</title>
+    <link rel="stylesheet" href="/style.css">
+  </head>
+  <body>
+      <div class="header"></div>
+      <div class="main"></div>
+      <div class="footer"></div>
+    <script src="/dist/browser.js"></script>
+  </body>
 </html>
