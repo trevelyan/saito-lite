@@ -55,14 +55,14 @@ class Wallet extends ModTemplate {
 
   onConfirmation(blk, tx, conf, app) {
 
-console.log("\n\n\nON CONFIRMATION IN WALLET MODULE\n\n\n");
-
     let slips 		= tx.returnSlipsToAndFrom(app.wallet.returnPublicKey());
     let to_slips  	= slips.to;
     let from_slips 	= slips.from;
 
     if (conf == 0) {
 
+console.log("\n\n\nON CONFIRMATION IN WALLET MODULE: ");
+console.log(JSON.stringify(tx.transaction) + "\n\n");
       //
       // any txs in pending should be checked to see if
       // we can remove them now that we have received
@@ -100,6 +100,7 @@ console.log("\n\n\nON CONFIRMATION IN WALLET MODULE\n\n\n");
       //
       if (to_slips.length > 0) {
         for (let m = 0; m < to_slips.length; m++) {
+console.log("SLIP: " + JSON.stringify(to_slips[m]));
           if (to_slips[m].amt > 0) {
             if (app.wallet.containsInput(to_slips[m]) == 0) {
               if (app.wallet.containsOutput(to_slips[m]) == 0) {
@@ -165,8 +166,12 @@ console.log("\n\n\nON CONFIRMATION IN WALLET MODULE\n\n\n");
   }
 
 
-  shouldAffixCallbackToModule(module_name) {
-    return 1;
+  shouldAffixCallbackToModule(module_name, tx=null) {
+    if (tx != null) {
+      if (tx.transaction.from[0].add == this.app.wallet.returnPublicKey()) { return 1; }
+      if (this.returnSlipsTo(receiverPublicKey).length > 0) { return 1; }
+    }
+    return 0;
   }
 
 }
