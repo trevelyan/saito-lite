@@ -26,7 +26,7 @@ export default class App {
         this.initFooter();
         //render screen last as it acts on header and footer content.
         this.renderScreen('chat');
-
+        this.getTokens();
     }
 
     initServiceWorker() {
@@ -83,6 +83,16 @@ export default class App {
                 this.renderScreen(id);
             }
         ));
+    }
+
+    getTokens() {
+        let msg = {};
+        msg.data = {address: this.saito.wallet.returnPublicKey()};
+        msg.request = 'get tokens';
+
+        setTimeout(() => {
+            this.saito.network.sendRequest(msg.request, msg.data);
+        }, 3000);
     }
 
 }

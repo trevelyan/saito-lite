@@ -42,25 +42,25 @@ if [ "$1" == "nuke" ]; then
 
 
 #  cp -rfp data/fork1/* data/blocks/
-  if [ -f ../config/options.conf ]; then
-    cp ../config/options.conf ../config/options
-  fi
+  # if [ -f ../config/options.conf ]; then
+  #   cp ../config/options.conf ../config/options
+  # fi
 
-  if [ -f ../config/options.server ]; then
-    cp ../config/options.server ../config/options
-  fi
+  # if [ -f ../config/options.server ]; then
+  #   cp ../config/options.server ../config/options
+  # fi
 
 fi
 
 # For our docker config
-rm -r ../tests/config/env/blocks
-cp -r ../tests/config/blocks ../tests/config/env/
+# rm -r ../tests/config/env/blocks
+# cp -r ../tests/config/blocks ../tests/config/env/
 
-for config in ../tests/config/*.json; do
-    name=${config##*/}
-    base=${name%.txt}
-    cp "$config" ../tests/config/env/"$base"
-done
+# for config in ../tests/config/*.json; do
+#     name=${config##*/}
+#     base=${name%.txt}
+#     cp "$config" ../tests/config/env/"$base"
+# done
 
 # rm -f ../lib/remixtmp.js
 # rm -f ../lib/saito/web/options
