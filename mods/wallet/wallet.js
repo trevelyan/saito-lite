@@ -1,6 +1,3 @@
-//
-// Our wallet is now a module...
-//
 var saito = require('../../lib/saito/saito');
 var ModTemplate = require('../../lib/templates/modtemplate.js');
 
@@ -9,6 +6,7 @@ var ModTemplate = require('../../lib/templates/modtemplate.js');
 // CONSTRUCTOR  //
 //////////////////
 class Wallet extends ModTemplate {
+
   constructor(app) {
     super(app);
 
@@ -21,45 +19,29 @@ class Wallet extends ModTemplate {
 
   onChainReorganization(bid, bsh, lc) {
 
-    if (lc == 1) {
+  }
 
-      this.app.wallet.purgeExpiredSlips();
-      this.app.wallet.resetSpentInputs();
 
-      //
-      // recreate pending slips
-      //
-      if (this.app.wallet.recreate_pending_transactions == 1) {
+  onConfirmation(blk, tx, conf, app) {
 
-        for (let i = 0; i < this.app.wallet.wallet.pending.length; i++) {
-          let ptx = new saito.transaction(this.app.wallet.wallet.pending[i]);
-          let newtx = this.app.wallet.createReplacementTransaction(ptx);
-          if (newtx != null) {
-            newtx = this.app.wallet.signTransaction(newtx);
-            if (newtx != null) {
-              this.wallet.pending[i] = JSON.stringify(newtx);
-            }
-          }
-        }
-        this.recreate_pending_transactions = 0;
-      }
-
-    //
-    //
-    //
-    } else {
-      if (this.doesSlipInPendingTransactionsSpendBlockHash(block_hash)) {
-        this.recreate_pending_transactions = 1;
-      }
+    if (conf == 1) {
+      console.log("\nWALLET INTERFACE MODULE!\n");
     }
-
-    this.resetExistingSlips(bid, bsh, lc);
 
   }
 
-  onConfirmation(blk, tx, conf, app) {}
+
+
+  shouldAffixCallbackToModule(module_name, tx=null) {
+    if (tx != null) {
+      if (tx.transaction.from[0].add == this.app.wallet.returnPublicKey()) { return 1; }
+      if (this.returnSlipsTo(receiverPublicKey).length > 0) { return 1; }
+    }
+    return 0;
+  }
 
 }
 
 
 module.exports = Wallet;
+
