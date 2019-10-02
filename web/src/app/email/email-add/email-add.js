@@ -2,14 +2,14 @@ import { EmailAddTemplate } from './email-add.template.js';
 // import { saito_lib } from '../../../lib/index';
 
 export const EmailAdd = {
-    render() {
+    render(mod) {
         document.querySelector(".main").innerHTML = EmailAddTemplate();
-        // this.attachEvents();
+        this.attachEvents(mod);
     },
 
-    attachEvents(saito) {
+    attachEvents(mod) {
         document.querySelector('.email-submit')
-            .addEventListener('click', (e) => this.sendEmailTransaction(saito));
+            .addEventListener('click', (e) => this.sendEmailTransaction(mod.saito));
 
     },
 

@@ -1,92 +1,81 @@
-import Settings from '../../settings/settings.js' ;
-
-import { ChatList } from '../chat-list/chat-list.js';
 import { HomeHeader } from '../../components/header/home-header.js';
 import { NavBar } from '../../components/navbar/navbar.js';
 
 import { ChatRoomTemplate } from './chatroom.template.js';
-import { ChatRoomHeaderTemplate } from './chatroomheader.template.js';
-import { ChatRoomFooterTemplate } from './chatroomfooter.template.js';
+import { ChatRoomHeaderTemplate } from './chatroom-header.template.js';
+import { ChatRoomFooterTemplate } from './chatroom-footer.template.js';
+import { ChatRoomMessageTemplate } from './chatroom-message.template.js';
 
 export const ChatRoom = {
-    render() {
+    render(mod, room, room_name) {
         let main = document.querySelector('.main');
         main.innerHTML = ChatRoomTemplate();
+
+        room.messages.forEach(room_message => {
+            let { id, message, author, timestamp } = room_message;
+            document.querySelector('.chat-room-content').innerHTML += ChatRoomMessageTemplate(id, message, author, timestamp, 'others');
+        })
 
         let header = document.querySelector('.header');
         header.classList.remove("header-home");
         header.classList.add("chat-room-header");
-        header.innerHTML = ChatRoomHeaderTemplate();
+        header.innerHTML = ChatRoomHeaderTemplate(room_name);
 
         let footer = document.querySelector('.footer');
         footer.classList.remove("nav-bar");
         footer.classList.add("chat-room-footer");
         footer.innerHTML = ChatRoomFooterTemplate();
+
+        this.attachEvents(mod);
     },
 
-    attachEvents(saito) {
+    attachEvents(mod) {
+        let renderDefaultHeaderAndFooter = (mod) => {
+            // header
+            let header = document.querySelector('.header');
+            header.classList.remove("chat-room-header");
+            HomeHeader.render(mod.app);
+
+            // footer
+            let footer = document.querySelector('.footer');
+            footer.classList.remove("chat-room-footer");
+            NavBar.render(mod.app);
+        }
+
         document.querySelector('#back-button')
-            .addEventListener('click', () => {
-                // header
-                let header = document.querySelector('.header');
-                header.classList.remove("chat-room-header");
-
-                HomeHeader.render();
-                HomeHeader.attachEvents();
-
-                // main
-                ChatList.render();
-                ChatList.attachEvents();
-
-                // footer
-                let footer = document.querySelector('.footer');
-                footer.classList.remove("chat-room-footer");
-
-                NavBar.render();
-                NavBar.attachEvents();
-            });
+                .addEventListener('click', () => {
+                    // chat mod render
+                    mod.render();
+                    renderDefaultHeaderAndFooter(mod);
+                    NavBar.updateNavBarButton('chat');
+                });
 
         document.querySelector('#notifications.header-icon')
                 .addEventListener('click', () => {
-                    let email = new Email;
-                    email.render();
-
-                    let header = document.querySelector('.header');
-                    header.classList.remove("chat-room-header");
-
-                    HomeHeader.render();
-                    HomeHeader.attachEvents();
-
-                    let footer = document.querySelector('.footer');
-                    footer.classList.remove("chat-room-footer");
-
-                    NavBar.render();
-                    NavBar.attachEvents();
+                    mod.app.email.render();
+                    renderDefaultHeaderAndFooter(mod);
                 });
 
         document.querySelector('#settings.header-icon')
                 .addEventListener('click', () => {
-                    let settings = new Settings
-                    settings.render();
-
-                    let header = document.querySelector('.header');
-                    header.classList.remove("chat-room-header");
-
-                    HomeHeader.render();
-                    HomeHeader.attachEvents();
-
-                    let footer = document.querySelector('.footer');
-                    footer.classList.remove("chat-room-footer");
-
-                    NavBar.render();
-                    NavBar.attachEvents();
+                    mod.app.settings.render();
+                    renderDefaultHeaderAndFooter(mod);
                 });
 
         document.querySelector('.chat-room-submit-button')
                 .addEventListener('click', () => {
-                    let msg = document.querySelector('#input.chat-room-input').value;
-                    let newtx = this.createMessage(saito, 'ALL', msg);
-                    this.sendMessage(saito, newtx);
+                    let message_input = document.querySelector('#input.chat-room-input');
+                    let msg = message_input.value;
+                    if (msg == '') { return; }
+
+                    message_input.value = '';
+
+                    let newtx = this.createMessage(mod.saito, 'ALL', msg);
+                    this.sendMessage(mod.saito, newtx);
+                    mod.chat.addMessageToRoom(newtx);
+
+                    this.addMessageToDOM(newtx);
+                    this.scrollToBottom();
                 });
     },
 
@@ -115,5 +104,15 @@ export const ChatRoom = {
 
     sendMessage(saito, tx, callback=null) {
         saito.network.sendTransactionToPeers(tx, "chat send message", callback);
+    },
+
+    addMessageToDOM(tx) {
+        let {message, publickey, timestamp} = tx.returnMessage();
+        let chat_message = ChatRoomMessageTemplate(tx.transaction.msg.sig, message, publickey, timestamp, 'myself');
+        document.querySelector('.chat-room-content').innerHTML += chat_message;
+    },
+
+    scrollToBottom() {
+        document.querySelector(".chat-room-content").scrollIntoView(false);
     }
 }

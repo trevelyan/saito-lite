@@ -12,20 +12,20 @@ export default class App {
     constructor() {}
 
     init(saito) {
-        this.chat = new Chat(saito);
-        this.arcade = new Arcade();
-        this.forum = new Forum();
-        this.wallet = new Wallet();
-        this.email = new Email(saito);
-        this.settings = new Settings();
-
         this.saito = saito;
+
+        this.chat = new Chat(this);
+        this.arcade = new Arcade(this);
+        this.forum = new Forum(this);
+        this.wallet = new Wallet(this);
+        this.email = new Email(this);
+        this.settings = new Settings(this);
 
         this.initServiceWorker();
         this.initHeader();
         this.initFooter();
-        //render screen last as it acts on header and footer content.
-        this.renderScreen('chat');
+
+        // Faucet testing
         this.getTokens();
     }
 
@@ -43,46 +43,14 @@ export default class App {
             });
     }
 
-    renderScreen(id) {
-        // render new screen based on what nav element is being clicked on
-        switch (id) {
-            case 'chat':
-                this.chat.render();
-                break;
-            case 'arcade':
-                this.arcade.render();
-                break;
-            case 'forum':
-                this.forum.render();
-                break;
-            case 'wallet':
-                this.wallet.render();
-                break;
-            default:
-                break;
-        }
-
-        let nav_button = document.querySelector(`#${id}.nav-button`);
-        nav_button.style.color = "var(--saito-red)";
-    }
-
     initHeader() {
-        HomeHeader.render();
-        HomeHeader.attachEvents(this.email);
+        HomeHeader.render(this);
     }
 
     initFooter() {
-        NavBar.render();
-        Array.from(document.getElementsByClassName('nav-button'))
-            .forEach(button => button.addEventListener('click', (event) => {
-                // turn all other buttons black
-                let buttons = document.getElementsByClassName('nav-button');
-                Array.from(buttons).forEach(button => button.style.color = "var(--text-color-normal)");
-
-                let id = event.target.id;
-                this.renderScreen(id);
-            }
-        ));
+        NavBar.render(this);
+        NavBar.renderScreen(this, "chat");
+        NavBar.updateNavBarButton("chat");
     }
 
     getTokens() {

@@ -1,5 +1,5 @@
 // const  = require('../../../lib/saito.js');
-import { saito_lib } from '../../../lib/index.js';
+const saito_lib = require('../../../lib/index.js').saito_lib;
 const ModTemplate = require('../../../lib/templates/modtemplate.js');
 
 class ChatLite extends ModTemplate {
@@ -8,6 +8,18 @@ class ChatLite extends ModTemplate {
 
     this.app = app
     this.name = "Chat"
+    this.rooms = {
+      'ALL': {
+        messages: [
+          {
+            id: "1",
+            timestamp: new Date().getTime(),
+            author: "bearguy@saito",
+            message: "Welcome to Chat!"
+          }
+        ]
+      }
+    };
   }
 
   initialize() {}
@@ -34,13 +46,31 @@ class ChatLite extends ModTemplate {
   }
 
   _receiveMessage(app, tx) {
-    //let room_idx = this._returnRoomIDX(txmsg.room_id);
-    //if (room_idx === parseInt(room_idx, 10)) {
+    // let room_idx = this._returnRoomIDX(txmsg.room_id);
+    // if (room_idx === parseInt(room_idx, 10)) {
     // let txmsg = tx.returnMsg();
-    console.log(tx);
+
+    this.addMessageToRoom(tx);
+
+    // need to call some sort of passed function here to render our room;
+
+    // should only bind if we're in the right place
+    this.addMessageToDOM(tx);
+    this.scrollToBottom();
+
     //this._addMessageToRoom(tx, room_idx, app);
     // }
   }
+
+  addMessageToRoom(tx) {
+    var txmsg = tx.returnMessage();
+    let { room_id, publickey, message, sig } = txmsg;
+    this.rooms[room_id].messages.push({id: sig, timestamp: tx.transaction.ts, author: publickey, message});
+  }
+
+  // will be binded
+  addMessageToDOM(tx) {}
+  scrollToBottom() {}
 }
 
-export default ChatLite;
+module.exports = ChatLite;

@@ -1,26 +1,22 @@
-// import Email from '../../email/email.js';
-// import Settings from '../../settings/settings.js';
-
 import { HomeHeaderTemplate } from './home-header.template.js';
 
-
 export const HomeHeader = {
-    render() {
+    render(app) {
         let header = document.querySelector('.header');
         header.innerHTML = HomeHeaderTemplate();
         header.classList.add('header-home');
+
+        this.attachEvents(app);
     },
 
-    attachEvents(email, settings) {
+    attachEvents(app) {
         document.querySelector('#notifications.header-icon')
                 .addEventListener('click', () => {
-                    // let email = new Email(saito);
-                    email.render();
+                    app.email.render();
                 });
         document.querySelector('#settings.header-icon')
                 .addEventListener('click', () => {
-                    // let settings = new Settings
-                    settings.render();
+                    app.settings.render();
                 });
     }
 }
