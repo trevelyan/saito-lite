@@ -24,7 +24,9 @@ class Wallet extends ModTemplate {
 
   onConfirmation(blk, tx, conf, app) {
 
-    console.log("\nWALLET INTERFACE MODULE!\n");
+    if (conf == 1) {
+      console.log("\nWALLET INTERFACE MODULE!\n");
+    }
 
   }
 
