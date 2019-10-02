@@ -86,6 +86,7 @@ class Storage {
 
 console.log("ADDING EXISTING FILE: " + fileID);
           await this.app.blockchain.addBlockToBlockchain(blk, true);
+console.log("DONE WAITING!");
 
         }
       } catch (err) {
