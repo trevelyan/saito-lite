@@ -51,7 +51,7 @@ async function initSaito() {
     app.wallet.initialize();
     app.mempool.initialize();
 
-//    await app.blockchain.initialize();
+    await app.blockchain.initialize();
 //    app.keys.initialize();
     app.network.initialize();
 //
