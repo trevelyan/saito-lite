@@ -10,7 +10,7 @@ var ModTemplate = require('../../lib/templates/modtemplate.js');
 //////////////////
 class Wallet extends ModTemplate {
   constructor(app) {
-    super();
+    super(app);
 
     this.app             = app;
     this.name            = "Wallet";

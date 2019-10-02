@@ -1,9 +1,12 @@
 import { ChatList } from './chat-list/chat-list.js';
 
 export default class Chat {
-    constructor() {}
+    constructor(saito) {
+        this.saito = saito
+    }
+
     render() {
         ChatList.render();
-        ChatList.attachEvents();
+        ChatList.attachEvents(this.saito);
     }
 }

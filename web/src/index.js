@@ -4,7 +4,7 @@ import { Saito } from '../../lib/index';
 let app = new App();
 
 let config = {
-  "mods_path": [],
+  "mods_path": ['../../../mods/chat/lite/index.js'],
   "peers":[{"host":"localhost","port":12101,"protocol":"http","publickey":"d98ERyo7NaFwxpfkYj7g7YKwqVXaCaTvJ33KtA7LBruH","synctype":"lite"}]
 };
 

@@ -8,7 +8,7 @@ export const ChatList = {
         //this.addChatListEvents();
     },
 
-    attachEvents() {
+    attachEvents(saito) {
         // TODO:
         // need to figure out how best to pass params
 
@@ -16,7 +16,7 @@ export const ChatList = {
         Array.from(document.getElementsByClassName('chat-row'))
              .forEach(row => row.addEventListener('click', () => {
                  ChatRoom.render();
-                 ChatRoom.attachEvents();
+                 ChatRoom.attachEvents(saito);
              }));
 
         // add click event to create-button

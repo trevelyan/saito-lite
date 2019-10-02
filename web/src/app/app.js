@@ -12,7 +12,7 @@ export default class App {
     constructor() {}
 
     init(saito) {
-        this.chat = new Chat();
+        this.chat = new Chat(saito);
         this.arcade = new Arcade();
         this.forum = new Forum();
         this.wallet = new Wallet();

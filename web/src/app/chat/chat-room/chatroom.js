@@ -24,7 +24,7 @@ export const ChatRoom = {
         footer.innerHTML = ChatRoomFooterTemplate();
     },
 
-    attachEvents() {
+    attachEvents(saito) {
         document.querySelector('#back-button')
             .addEventListener('click', () => {
                 // header
@@ -81,5 +81,39 @@ export const ChatRoom = {
                     NavBar.render();
                     NavBar.attachEvents();
                 });
+
+        document.querySelector('.chat-room-submit-button')
+                .addEventListener('click', () => {
+                    let msg = document.querySelector('#input.chat-room-input').value;
+                    let newtx = this.createMessage(saito, 'ALL', msg);
+                    this.sendMessage(saito, newtx);
+                });
+    },
+
+    createMessage(saito, chat_room_id, msg) {
+        // let fee = 0.0 //await this._returnModServerStatus() ? 0.0 : 2.0;
+        // if (this.server.peer.publickey == null) { return null; }
+        let publickey = saito.network.peers[0].peer.publickey;
+        let newtx = saito.wallet.createUnsignedTransaction(publickey, 0.0, 0.0);
+        if (newtx == null) { return; }
+
+        newtx.transaction.msg = {
+            module: "Chat",
+            request: "chat send message",
+            publickey: saito.wallet.returnPublicKey(),
+            room_id: chat_room_id,
+            message:  msg,
+            //this.saito.keys.encryptMessage(this.saito.wallet.returnPublicKey(), msg),
+            timestamp: new Date().getTime(),
+        };
+
+        // newtx.transaction.msg = this.app.keys.encryptMessage(this.app.wallet.returnPublicKey(), newtx.transaction.msg);
+        newtx.transaction.msg.sig = saito.wallet.signMessage(JSON.stringify(newtx.transaction.msg));
+        newtx = saito.wallet.signTransaction(newtx);
+        return newtx;
+    },
+
+    sendMessage(saito, tx, callback=null) {
+        saito.network.sendTransactionToPeers(tx, "chat send message", callback);
     }
 }
