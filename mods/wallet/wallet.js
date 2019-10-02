@@ -13,6 +13,7 @@ class Wallet extends ModTemplate {
     this.app             = app;
     this.name            = "Wallet";
     this.handlesEmail    = 1;
+
     this.emailAppName    = "Saito Wallet";
     return this;
   }
@@ -24,8 +25,7 @@ class Wallet extends ModTemplate {
 
   onConfirmation(blk, tx, conf, app) {
 
-    if (conf == 1) {
-      console.log("\nWALLET INTERFACE MODULE!\n");
+    if (conf == 0) {
     }
 
   }

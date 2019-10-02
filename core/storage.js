@@ -36,6 +36,66 @@ class Storage {
 
 
 
+  async loadBlocksFromDisk(maxblocks=0) {
+
+    this.loading_active = true;
+
+    //
+    // sort files by creation date, and then name
+    // if two files have the same creation date
+    //
+    let dir   = `${this.directory}/${this.dest}/`;
+
+    //
+    // if this takes a long time, our server can
+    // just refuse to sync the initial connection
+    // as when it starts to connect, currently_reindexing
+    // will be set at 1
+    //
+    let files = fs.readdirSync(dir);
+
+    //
+    // "empty" file only
+    //
+    if (files.length == 1) {
+      this.loading_active = false;
+      return;
+    }
+
+    files.sort(function(a, b) {
+      var compres = fs.statSync(dir + a).mtime.getTime() - fs.statSync(dir + b).mtime.getTime();
+      if (compres == 0) {
+        return parseInt(a) - parseInt(b);
+      }
+      return compres;
+    });
+
+    for (let i = 0; i < files.length; i++) {
+
+      try {
+
+        let fileID = files[i];
+        if (fileID !== "empty") {
+
+          let blk = this.loadBlockByFilename(fileID);
+
+          if (blk == null || blk.is_valid == 0) {
+            console.log("We have saved an invalid block: " + fileID);
+            return null;
+          }
+
+console.log("ADDING EXISTING FILE: " + fileID);
+          await this.app.blockchain.addBlockToBlockchain(blk, true);
+
+        }
+      } catch (err) {
+console.log("ERROR 109328: error loading blockchain from disk...: " + err);
+      }
+    }
+  }
+
+
+
 
   /**
    * Saves a block to database and disk and shashmap
@@ -71,20 +131,20 @@ class Storage {
 
 
 
-  loadlockById(bid) {
+  loadBlockById(bid) {
     let bsh = this.app.blockchain.bid_bsh_hmap[bid];
     let ts  = this.app.blockchain.bsh_ts_hmap[bsh];
     let filename = ts+"-"+bsh+".blk";
     return this.loadBlockByFilename(filename);
   }
 
-  loadlockByHash(bsv) {
+  loadBlockByHash(bsv) {
     let ts  = this.app.blockchain.bsh_ts_hmap[bsh];
     let filename = ts+"-"+bsh+".blk";
     return this.loadBlockByFilename(filename);
   }
 
-  loadlockByFilename(filename) {
+  loadBlockByFilename(filename) {
 
     let block_filename = `${this.directory}/${this.dest}/${filename}`;
 
