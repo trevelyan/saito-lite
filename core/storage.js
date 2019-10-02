@@ -84,13 +84,10 @@ class Storage {
             return null;
           }
 
-console.log("ADDING EXISTING FILE: " + fileID);
           await this.app.blockchain.addBlockToBlockchain(blk, true);
-console.log("DONE WAITING!");
 
         }
       } catch (err) {
-console.log("ERROR 109328: error loading blockchain from disk...: " + err);
       }
     }
   }
@@ -162,7 +159,9 @@ console.log("ERROR 109328: error loading blockchain from disk...: " + err);
 
       var blk = new saito.block(this.app, data_split[0]);
       for (let i = 1; i < data_split.length; i++) {
-        blk.transactions.push(new saito.transaction(data_split[i]));
+	if (data_split[i].length > 0) {
+          blk.transactions.push(new saito.transaction(data_split[i]));
+	}
       }
 
       return blk;
