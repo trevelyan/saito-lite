@@ -1,6 +1,6 @@
 const saito = require('../../../lib/saito/saito.js');
 const ModTemplate = require('../../../lib/templates/modtemplate.js');
-//const sqlite = require('sqlite3');
+const sqlite = require('sqlite3');
 
 
 class ExplorerCore extends ModTemplate {
@@ -11,7 +11,7 @@ class ExplorerCore extends ModTemplate {
         this.name = "Explorer";
 
     }
-/*
+
     // Install Module //
     installModule() {
 
@@ -33,7 +33,6 @@ class ExplorerCore extends ModTemplate {
         }
 
     }
-*/
 
 }
 
