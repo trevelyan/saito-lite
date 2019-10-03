@@ -10,7 +10,7 @@ module.exports = {
     },
 
     externals: {
-        sqlite3: 'sqlite3'
+        sqlite: 'sqlite'
     },
 
     // Path to your entry point. From this file Webpack will begin his work

@@ -54,17 +54,16 @@ class ExplorerCore extends ModTemplate {
     }
 
     onConfirmation(blk, tx, conf, app) {
-        console.log('explorer - on confirmation');
         if (conf == 0) {
+            console.log('explorer - on confirmation 0');
         }
-    
-      }
+    }
 
-      onNewBlock(blk, lc) {
-          console.log('explorer - on new block');
-      }
+    onNewBlock(blk, lc) {
+        console.log('explorer - on new block');
+    }
 
-    /*  
+    /*
 
     async onNewBlock(blk, lc) {
         console.log('explorer - new block');
@@ -98,6 +97,8 @@ class ExplorerCore extends ModTemplate {
     }
 
     */
+
+    shouldAffixCallbackToModule() { return 1; }
 
 
 }
