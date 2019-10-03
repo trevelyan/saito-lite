@@ -7,6 +7,8 @@ const webserver   = require('http').Server(app);
 const io          = require('socket.io')(webserver);
 const fs          = require('fs');
 const path        = require('path');
+const bodyParser  = require('body-parser');
+
 
 
 /**
@@ -99,6 +101,10 @@ class Server {
     // enable cross origin polling for socket.io
     //
     io.origins('*:*');
+
+    // body-parser
+    app.use(bodyParser.urlencoded({ extended: true }));
+    app.use(bodyParser.json());
 
 
     ///////////////////////////

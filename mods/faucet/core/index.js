@@ -34,7 +34,9 @@ class Faucet extends ModTemplate {
       return;
     }
 
-    if (Big(this.app.wallet.returnBalance()).lt(50)) {
+    let wallet_balance = this.app.wallet.returnBalance();
+
+    if (wallet_balance < 1000) {
     // if we have less than 50 Saito in our wallets
     // if (this.app.wallet.returnBalance() < 5000000000) {
       // res.setHeader('Content-type', 'json/application');
@@ -64,7 +66,7 @@ class Faucet extends ModTemplate {
       // params = { $publickey : publickey , $unixtime : unixtime }
       // this.app.storage.db.all(sql, params)
 
-      newtx = this.app.wallet.createUnsignedTransactionWithDefaultFee(publickey, 1000.0);
+      let newtx = this.app.wallet.createUnsignedTransactionWithDefaultFee(publickey, 1000.0);
 
       if (newtx == null) {
         // res.setHeader('Content-type', 'json/application');
@@ -77,9 +79,9 @@ class Faucet extends ModTemplate {
       newtx.transaction.msg.module = "Email";
       newtx.transaction.msg.title  = "Saito Faucet - Transaction Receipt";
       newtx.transaction.msg.data   = 'You have received 1000 tokens from our Saito faucet.';
-      newtx = faucet_self.app.wallet.signTransaction(newtx);
+      newtx = this.app.wallet.signTransaction(newtx);
 
-      faucet_self.app.network.propagateTransaction(newtx);
+      this.app.network.propagateTransaction(newtx);
 
       // res.setHeader('Content-type', 'json/application');
       // res.charset = 'UTF-8';
