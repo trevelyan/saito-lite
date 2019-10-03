@@ -1,8 +1,8 @@
-let ModTemplate = require('../../../lib/templates/modtemplate.js/index'.js);
+const ModTemplate = require('../../../lib/templates/modtemplate.js');
 
 class Faucet extends ModTemplate {
   constructor(app) {
-    super();
+    super(app);
 
     this.app = app;
     this.name = "Faucet";

@@ -1,12 +1,13 @@
 import { EmailList} from './email-list/email-list.js';
 
 export default class Email {
-    constructor(saito) {
-        this.saito = saito
+    constructor(app) {
+        this.app = app;
+        this.saito = app.saito;
         return this;
     }
     render() {
-       EmailList.render();
-       EmailList.attachEvents(this.saito);
+       EmailList.render(this);
+    //    EmailList.attachEvents(this.saito);
     }
 }

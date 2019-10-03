@@ -8,12 +8,12 @@
 html {
     --text-color-normal: var(--saito-cyber-black);
     --backround-general: var(--saito-white);
-  }
-  
-  html[data-theme='dark'] {
-     --text-color-normal: var(--saito-skyline-grey);
-     --backround-general: var(--saito-cyber-black);
-  }
+}
+
+html[data-theme='dark'] {
+    --text-color-normal: var(--saito-skyline-grey);
+    --backround-general: var(--saito-cyber-black);
+}
 
 
 @font-face {
@@ -264,6 +264,10 @@ input[type=text], input[type=number] {
     color: darkgrey;
 }
 
+.chat-message-timestamp {
+    margin-left: 1em;
+}
+
 .chat-room-message-others {
     background: var(--saito-skyline-grey);
     justify-self: left;
@@ -318,7 +322,7 @@ input[type=text], input[type=number] {
 }
 
 .chat-room-input > textarea {
-    height: 2.5em;
+    height: 2.75em;
     font-size: 1em;
     padding: 10px 5px;
     border: 1px solid lightgrey;
