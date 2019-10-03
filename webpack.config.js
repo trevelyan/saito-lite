@@ -6,7 +6,11 @@ const path = require('path');
 module.exports = {
     target: 'web',
     node: {
-        fs: "empty"
+        fs: "empty",
+    },
+
+    externals: {
+        sqlite3: 'sqlite3'
     },
 
     // Path to your entry point. From this file Webpack will begin his work
