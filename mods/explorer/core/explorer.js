@@ -78,9 +78,7 @@ class ExplorerCore extends ModTemplate {
     }
 
     webServer(app, expressapp) {
-
         expressapp.use('/explorer', express.static(__dirname + '../web/'));
-
     };
 
     shouldAffixCallbackToModule() { return 1; }
