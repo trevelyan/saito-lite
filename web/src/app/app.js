@@ -60,7 +60,7 @@ export default class App {
 
         setTimeout(() => {
             this.saito.network.sendRequest(msg.request, msg.data);
-        }, 3000);
+        }, 1000);
     }
 
 }

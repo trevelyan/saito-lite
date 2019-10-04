@@ -34,8 +34,9 @@ class Wallet extends ModTemplate {
 
   shouldAffixCallbackToModule(module_name, tx=null) {
     if (tx != null) {
-      if (tx.transaction.from[0].add == this.app.wallet.returnPublicKey()) { return 1; }
-      if (this.returnSlipsTo(receiverPublicKey).length > 0) { return 1; }
+      let mypublickey = this.app.wallet.returnPublicKey();
+      if (tx.transaction.from[0].add == mypublickey) { return 1; }
+      if (tx.returnSlipsTo(mypublickey).length > 0) { return 1; }
     }
     return 0;
   }

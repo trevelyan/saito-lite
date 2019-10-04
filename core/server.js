@@ -143,7 +143,9 @@ class Server {
       let ts = this.app.blockchain.bsh_ts_hmap[bhash];
       let filename = ts + "-" + bhash + ".blk";
             if (ts > 0) {
-              return fs.readFileSync(this.blocks_dir + filename, 'utf8');
+              // return 
+              let blk = fs.readFileSync(this.blocks_dir + filename, 'utf8');
+              return JSON.parse(blk)
             }
           } catch(err) {
             console.error("FETCH BLOCKS ERROR: ", err);

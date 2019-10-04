@@ -4,18 +4,14 @@ import { EmailListTemplate } from './email-list.template.js';
 export const EmailList = {
     render(mod) {
         let main = document.querySelector(".main");
-        main.innerHTML = EmailListTemplate()
-        //
-        //main.classList.add("")
+        main.innerHTML = EmailListTemplate();
         this.attachEvents(mod);
-
     },
 
     attachEvents(mod) {
         document.querySelector('#email.create-button')
             .addEventListener('click', (e) => {
-                EmailAdd.render(mod.saito);
-                //EmailAdd.attachEvents(mod.saito)
+                EmailAdd.render(mod);
             });
     }
 }
