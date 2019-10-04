@@ -387,7 +387,7 @@ class Server {
   //
   // reactivate modules
   //
-  //this.app.modules.webServer(app);
+    this.app.modules.webServer(app);
 
     app.get('*', (req, res) => {
       res.status(404).sendFile(`${server_self.web_dir}404.html`);
