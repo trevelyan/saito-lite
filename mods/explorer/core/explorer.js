@@ -78,7 +78,6 @@ class ExplorerCore extends ModTemplate {
     }
 
     webServer(app, expressapp) {
-        //expressapp.use('/explorer', path());
         expressapp.get('/explorer', (req, res) => {
             res.sendFile(__dirname + '/web/index.html');
             return;

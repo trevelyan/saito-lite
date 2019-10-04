@@ -332,11 +332,12 @@ class Server {
   });
 
   app.get('/options', (req, res) => {
-    this.app.storage.saveClientOptions();
-    res.setHeader("Cache-Control", "private, no-cache, no-store, must-revalidate");
-    res.setHeader("expires","-1");
-    res.setHeader("pragma","no-cache");
-    res.sendFile(server_self.web_dir + "client.options");
+    //this.app.storage.saveClientOptions();
+    // res.setHeader("Cache-Control", "private, no-cache, no-store, must-revalidate");
+    // res.setHeader("expires","-1");
+    // res.setHeader("pragma","no-cache");
+    //res.sendFile(server_self.web_dir + "client.options");
+    res.send(this.app.storage.returnClientOptions());
     return;
   });
 

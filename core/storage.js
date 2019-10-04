@@ -367,6 +367,48 @@ class Storage {
 
   }
 
+  returnClientOptions() {
+
+    if (this.app.BROWSER == 1) { return; }
+    let client_peer = Object.assign({}, this.app.server.server.endpoint, {synctype: "lite"});
+    //
+    // mostly empty, except that we tell them what our latest
+    // block_id is and send them information on where our
+    // server is located so that they can sync to it.
+    //
+    var t                      = {};
+        t.keys                 = [];
+        t.peers                = [];
+        t.proxymod             = [];
+        t.dns                  = [];
+        t.blockchain           = {};
+        t.wallet               = {};
+        t.registry             = this.app.options.registry;
+        // t.dns                  = this.app.dns.dns.domains;
+        t.peers.push(client_peer);
+        t.proxymod.push(client_peer);
+
+    //
+    // write file
+    //
+    try {
+      //fs.writeFileSync(`${__dirname}/web/client.options`, JSON.stringify(t));
+      return t;
+    } catch(err) {
+      console.log(err);
+      console.error(err);
+      // this.app.logger.logError("Error thrown in storage.saveBlock", {message: "", stack: err});
+    }
+
+    // fs.writeFileSync("saito/web/client.options", JSON.stringify(t), (err) => {
+    //   if (err) {
+    //   console.log(err);
+    //   this.app.logger.logError("Error thrown in storage.saveBlock", {message: "", stack: err});
+    //   }
+    // });
+
+  }
+
   /**
    * TODO: uses a callback and should be moved to await / async promise
    **/
