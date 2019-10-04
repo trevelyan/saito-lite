@@ -1,6 +1,6 @@
 const saito = require('./lib/saito/saito.js');
 const server = require('./core/server.js');
-const storage = require('./core/storage.js');
+const storage = require('./core/storage-core.js');
 const mods_config = require('./mods/modules.config.js');
 
 var app                   = {};
