@@ -1,9 +1,24 @@
 import {SettingsTemplate} from './settings.template';
 
 export default class Settings {
+    constructor(app) {
+        this.app = app;
+    }
+
     render() {
         document.querySelector('.main').innerHTML = SettingsTemplate();
         this.initSettings();
+        this.attachEvents(this.app.saito);
+    }
+
+    attachEvents(saito) {
+        let reset_button = document.querySelector('.settings-reset-button');
+        reset_button.addEventListener('click', async () => {
+            await saito.storage.resetOptions();
+            // saito.storage.saveOptions();
+            alert('Your options have been reset');
+            window.location.reload();
+        });
     }
 
     initSettings() {

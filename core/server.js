@@ -7,6 +7,8 @@ const webserver   = require('http').Server(app);
 const io          = require('socket.io')(webserver);
 const fs          = require('fs');
 const path        = require('path');
+const bodyParser  = require('body-parser');
+
 
 
 /**
@@ -100,6 +102,10 @@ class Server {
     //
     io.origins('*:*');
 
+    // body-parser
+    app.use(bodyParser.urlencoded({ extended: true }));
+    app.use(bodyParser.json());
+
 
     ///////////////////////////
     // full-node multi-block //
@@ -137,7 +143,9 @@ class Server {
       let ts = this.app.blockchain.bsh_ts_hmap[bhash];
       let filename = ts + "-" + bhash + ".blk";
             if (ts > 0) {
-              return fs.readFileSync(this.blocks_dir + filename, 'utf8');
+              // return 
+              let blk = fs.readFileSync(this.blocks_dir + filename, 'utf8');
+              return JSON.parse(blk)
             }
           } catch(err) {
             console.error("FETCH BLOCKS ERROR: ", err);
@@ -324,11 +332,12 @@ class Server {
   });
 
   app.get('/options', (req, res) => {
-    this.app.storage.saveClientOptions();
-    res.setHeader("Cache-Control", "private, no-cache, no-store, must-revalidate");
-    res.setHeader("expires","-1");
-    res.setHeader("pragma","no-cache");
-    res.sendFile(server_self.web_dir + "client.options");
+    //this.app.storage.saveClientOptions();
+    // res.setHeader("Cache-Control", "private, no-cache, no-store, must-revalidate");
+    // res.setHeader("expires","-1");
+    // res.setHeader("pragma","no-cache");
+    //res.sendFile(server_self.web_dir + "client.options");
+    res.send(this.app.storage.returnClientOptions());
     return;
   });
 
@@ -379,7 +388,7 @@ class Server {
   //
   // reactivate modules
   //
-  //this.app.modules.webServer(app);
+    this.app.modules.webServer(app);
 
     app.get('*', (req, res) => {
       res.status(404).sendFile(`${server_self.web_dir}404.html`);

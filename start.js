@@ -1,6 +1,6 @@
 const saito = require('./lib/saito/saito.js');
 const server = require('./core/server.js');
-const storage = require('./core/storage.js');
+const storage = require('./core/storage-core.js');
 const mods_config = require('./mods/modules.config.js');
 
 var app                   = {};
@@ -70,9 +70,13 @@ async function initSaito() {
     // can check which application we
     // are viewing.
     //
-   app.modules.pre_initialize();
+    app.modules.mods = mods_config.map(mod_path => {
+      const Module = require(`./mods/${mod_path}`);
+      return new Module(app);
+    });
+    app.modules.pre_initialize();
 //    app.browser.initialize();
-   app.modules.initialize();
+    app.modules.initialize();
     //
     // server initialized after modules
     // so that the modules can use the

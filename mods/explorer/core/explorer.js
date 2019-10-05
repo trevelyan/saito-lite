@@ -15,22 +15,7 @@ class ExplorerCore extends ModTemplate {
     // Install Module //
     async installModule() {
 
-        console.log('install block explorer database if needed.');
-
         try {
-            const fs = require('fs')
-
-            const path = './data/explorer.sq3'
-
-            try {
-                if (fs.existsSync(path)) {
-                    console.log('database exists');
-                }
-            } catch (err) {
-                console.error(err)
-            }
-
-
             this.db = await sqlite.open('./data/explorer.sq3');
             var sql = "CREATE TABLE IF NOT EXISTS mod_explorer_tx (id INTEGER, address TEXT, amt TEXT, bid INTEGER, tid INTEGER, sid INTEGER, bhash TEXT, lc INTEGER, rebroadcast INTEGER, PRIMARY KEY (id ASC))";
             let res = await this.db.run(sql, {});
@@ -42,9 +27,6 @@ class ExplorerCore extends ModTemplate {
 
     // Initialize Module //
     async initialize() {
-
-        console.log('attatch block explorer database.');
-
         if (this.db == null) {
             try {
                 this.db = await sqlite.open('./data/explorer.sq3');
@@ -55,7 +37,9 @@ class ExplorerCore extends ModTemplate {
 
     onConfirmation(blk, tx, conf, app) {
         if (conf == 0) {
+            var this_explorer = app.modules.returnModule("Explorer");
             console.log('explorer - on confirmation 0');
+            this_explorer.addTransactionsToDatabase(blk);
         }
     }
 
@@ -63,16 +47,13 @@ class ExplorerCore extends ModTemplate {
         console.log('explorer - on new block');
     }
 
-    /*
-
-    async onNewBlock(blk, lc) {
-        console.log('explorer - new block');
+    async addTransactionsToDatabase(blk) {
         try {
             console.log(blk.transactions.length);
             for (let i = 0; i < blk.transactions.length; i++) {
-                if (blk.transactions[i].transaction.type >= 3) {
+                if (blk.transactions[i].transaction.type >= -999) {
                     for (let ii = 0; ii < blk.transactions[i].transaction.to.length; ii++) {
-                        if (blk.transactions[i].transaction.to[ii].type == 4) {
+                        if (blk.transactions[i].transaction.to[ii].type >= -999) {
                             let sql = "INSERT INTO mod_explorer_tx (address, amt, bid, tid, sid, bhash, lc, rebroadcast) VALUES ($address, $amt, $bid, $tid, $sid, $bhash, $lc, $rebroadcast)";
                             let params = {
                                 $address: blk.transactions[i].transaction.to[ii].add,
@@ -81,7 +62,7 @@ class ExplorerCore extends ModTemplate {
                                 $tid: blk.transactions[i].transaction.id,
                                 $sid: ii,
                                 $bhash: blk.returnHash(),
-                                $lc: lc,
+                                $lc: 1,
                                 $rebroadcast: 0
                             }
                             let rows = await this.db.run(sql, params);
@@ -91,15 +72,19 @@ class ExplorerCore extends ModTemplate {
             }
             return;
         } catch (err) {
-          console.error(err);
+            console.error(err);
         }
 
     }
 
-    */
+    webServer(app, expressapp) {
+        expressapp.get('/explorer', (req, res) => {
+            res.sendFile(__dirname + '/web/index.html');
+            return;
+        });
+    };
 
     shouldAffixCallbackToModule() { return 1; }
-
 
 }
 

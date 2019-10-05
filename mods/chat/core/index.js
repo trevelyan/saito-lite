@@ -22,7 +22,7 @@ class ChatCore extends ModTemplate {
 
     switch (req.request) {
       case "chat send message":
-        var tx = new saito.transaction(req.data);
+        var tx = new saito.transaction(JSON.parse(req.data));
         if (tx == null) { return; }
         this._receiveMessage(app, tx);
         if (mycallback) {

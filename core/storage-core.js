@@ -102,29 +102,16 @@ class Storage {
    * @param {int} lc longest chain
    */
   async saveBlock(blk=null, lc=0) {
-
     try {
-
       let filename = `${this.directory}/${this.dest}/${blk.returnFilename()}`;
-      let blkdata  = JSON.stringify(blk.block) + "\n";
-
       if (!fs.existsSync(filename)) {
-        //fs.writeFile(filename, blkdata, 'UTF-8');
-        fs.writeFileSync(filename, blkdata, 'UTF-8');
-        for (let i = 0; i < blk.transactions.length; i++) {
-          let txdata  = JSON.stringify(blk.transactions[i].transaction) + "\n";
-          fs.appendFileSync(filename, txdata, 'UTF-8');
-	};
+        fs.writeFileSync(filename, blk.returnBlockFileData(), 'UTF-8');
       }
-
       return true;
-
     } catch (err) {
       console.log("ERROR 285029: error saving block to disk " + err);
     }
-
     return true;
-
   }
 
 
@@ -154,15 +141,8 @@ class Storage {
     //
     if (fs.existsSync(block_filename)) {
 
-      let data 		= fs.readFileSync(block_filename, 'utf8');
-      let data_split 	= data.split("\n");
-
-      var blk = new saito.block(this.app, data_split[0]);
-      for (let i = 1; i < data_split.length; i++) {
-	if (data_split[i].length > 0) {
-          blk.transactions.push(new saito.transaction(data_split[i]));
-	}
-      }
+      let data = JSON.parse(fs.readFileSync(block_filename, 'utf8'));
+      let blk = new saito.block(this.app, data);
 
       return blk;
 
@@ -371,6 +351,48 @@ class Storage {
     //
     try {
       fs.writeFileSync(`${__dirname}/web/client.options`, JSON.stringify(t));
+    } catch(err) {
+      console.log(err);
+      console.error(err);
+      // this.app.logger.logError("Error thrown in storage.saveBlock", {message: "", stack: err});
+    }
+
+    // fs.writeFileSync("saito/web/client.options", JSON.stringify(t), (err) => {
+    //   if (err) {
+    //   console.log(err);
+    //   this.app.logger.logError("Error thrown in storage.saveBlock", {message: "", stack: err});
+    //   }
+    // });
+
+  }
+
+  returnClientOptions() {
+
+    if (this.app.BROWSER == 1) { return; }
+    let client_peer = Object.assign({}, this.app.server.server.endpoint, {synctype: "lite"});
+    //
+    // mostly empty, except that we tell them what our latest
+    // block_id is and send them information on where our
+    // server is located so that they can sync to it.
+    //
+    var t                      = {};
+        t.keys                 = [];
+        t.peers                = [];
+        t.proxymod             = [];
+        t.dns                  = [];
+        t.blockchain           = {};
+        t.wallet               = {};
+        t.registry             = this.app.options.registry;
+        // t.dns                  = this.app.dns.dns.domains;
+        t.peers.push(client_peer);
+        t.proxymod.push(client_peer);
+
+    //
+    // write file
+    //
+    try {
+      //fs.writeFileSync(`${__dirname}/web/client.options`, JSON.stringify(t));
+      return t;
     } catch(err) {
       console.log(err);
       console.error(err);
