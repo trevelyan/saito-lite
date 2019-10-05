@@ -136,7 +136,7 @@ class Storage {
     return this.loadBlockByFilename(filename);
   }
 
-  loadBlockByHash(bsv) {
+  loadBlockByHash(bsh) {
     let ts  = this.app.blockchain.bsh_ts_hmap[bsh];
     let filename = ts+"-"+bsh+".blk";
     return this.loadBlockByFilename(filename);
