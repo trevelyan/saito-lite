@@ -143,7 +143,6 @@ class Storage {
 
       let data = JSON.parse(fs.readFileSync(block_filename, 'utf8'));
       let blk = new saito.block(this.app, data);
-      // blk.transactions = data.transactions.map(tx => new saito.transaction(tx.transaction));
 
       return blk;
 
