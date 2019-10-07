@@ -346,11 +346,51 @@ input[type=text], input[type=number] {
     grid-template-rows: 1.5em auto;
 }
 
+.arcade-content {
+    overflow: scroll;
+}
+
 .games-table-header {
     display: grid;
     grid-template-columns: 85% 15%;
     align-items: center;
 }
+
+.game {
+    margin-right: 1em;
+    width: 88vw;
+}
+
+.gamelist {
+    display: flex;
+    overflow-x: scroll;
+}
+
+.arcade-start-game {
+    margin-top: 1em;
+    grid-gap: 1em;
+}
+
+.gameimage {
+    text-align: center;
+    border: 3px solid #888;
+    cursor: pointer;
+    max-height: 12em;
+}
+
+#options {
+    display: grid;
+    grid-row-gap: 0.5em;
+    grid-template-columns: 1fr 1fr;
+}
+
+#options > select {
+    border: 1px solid black;
+    padding: 1em;
+    border-radius: 5px;
+    background: white;
+}
+
 
 /*.games-play-button {
     background-color: var(--saito-red);
