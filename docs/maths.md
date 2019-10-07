@@ -53,13 +53,9 @@ Given these conditions the expected reward for an attack over time on the networ
 #### Mining Reward
 We are presuming the miner uses one of the golden ticket solutions found so their expected reward includes the miner reward or golden ticket prize.
 
-$$ f \cdot Ps \cdot n $$
-
 <img src="https://render.githubusercontent.com/render/math?invert_in_darkmode&math=f \cdot Ps \cdot n">
 
-A miner cannot get paid for multiple golden ticket solutions, so for $n >1$ the expected reward is simply:
-
-$$ f \cdot Ps$$
+A miner cannot get paid for multiple golden ticket solutions, so for <img src="https://render.githubusercontent.com/render/math?invert_in_darkmode&math=n >1"> the expected reward is simply:
 
 <img src="https://render.githubusercontent.com/render/math?invert_in_darkmode&math=f \cdot Ps">
 
@@ -67,40 +63,41 @@ $$ f \cdot Ps$$
 
 If the attacker finds a golden ticket that pays their own node they are paid the entire block reward. The expected reward for a block into which the attacker has stuffed _p_ of their own fees is:
 
-$$ f \cdot Ps \cdot p $$ 
+<img src="https://render.githubusercontent.com/render/math?invert_in_darkmode&math=f \cdot Ps \cdot p">
 
-But, the attacker is only getting the honest fees back, so for a single golden ticket solution the payout is the portion of fees that go to the routing reward $f\cdotPs& minus the fees the attacker put into the block $f\cdot p$:
+But, the attacker is only getting the honest fees back, so for a single golden ticket solution the payout is the portion of fees that go to the routing reward $f\cdotPs& minus the fees the attacker put into the block <img src="https://render.githubusercontent.com/render/math?invert_in_darkmode&math=f\cdot p)">:
 
-$$ f \cdot Ps \cdot p - f \cdot p $$ 
+<img src="https://render.githubusercontent.com/render/math?invert_in_darkmode&math=f \cdot Ps \cdot p - f \cdot p">
 
 Hashing to find n solutions yields an expected outcome of:
 
-$$ f \cdot Ps \cdot (1-(1-p)^n) - f \cdot p$$
+<img src="https://render.githubusercontent.com/render/math?invert_in_darkmode&math=f \cdot Ps \cdot (1-(1-p)^n) - f \cdot p">
 
 Given also that the attacker is waiting d blocks to hash, to optimise the number of blocks paying out in their favor, the expected routing reward becomes:
 
-$$ d \cdot (f \cdot Ps \cdot (1-(1-p)^n) - f \cdot p) $$
+<img src="https://render.githubusercontent.com/render/math?invert_in_darkmode&math=d \cdot (f \cdot Ps \cdot (1-(1-p)^n) - f \cdot p">
+
 
 
 #### Mining Cost
 
-Given the attacker's access to hashpower mining cost is a simple function. The expected cost of mining _n_ golden tickets is: $c \cdot n$. But the attacker will stop mining if they have found a solution that has solved all outstanding blocks.
+Given the attacker's access to hashpower mining cost is a simple function. The expected cost of mining _n_ golden tickets is: <img src="https://render.githubusercontent.com/render/math?invert_in_darkmode&math=c \cdot n">. But the attacker will stop mining if they have found a solution that has solved all outstanding blocks.
 
-The chance that a solution solves all blocks in the attacker's favour is $p^d$. So the expected saving per golden ticket, after the first is $(n-1) \cdot p^d$. The cost of mining when $n > 1$ is then:
+The chance that a solution solves all blocks in the attacker's favour is <img src="https://render.githubusercontent.com/render/math?invert_in_darkmode&math=p^d">. So the expected saving per golden ticket, after the first is <img src="https://render.githubusercontent.com/render/math?invert_in_darkmode&math=(n-1) \cdot p^d">. The cost of mining when <img src="https://render.githubusercontent.com/render/math?invert_in_darkmode&math=n > 1"> is then:
 
-$$ c \cdot n - ((n-1) \cdot p^d) $$
+<img src="https://render.githubusercontent.com/render/math?invert_in_darkmode&math=c \cdot n - ((n-1) \cdot p^d)">
 
 #### Total expected attack reward
 
 Combining the above we have: 
 
-For $n <1$:
+For <img src="https://render.githubusercontent.com/render/math?invert_in_darkmode&math=n <1">:
 
-$$ f \cdot Ps \cdot n + d \cdot (f \cdot Ps \cdot (1-(1-p)^n) - f \cdot p)- c \cdot n $$
+<img src="https://render.githubusercontent.com/render/math?invert_in_darkmode&math=f \cdot Ps \cdot n + d \cdot (f \cdot Ps \cdot (1-(1-p)^n) - f \cdot p)- c \cdot n">
 
-For $n >= 1$:
+For <img src="https://render.githubusercontent.com/render/math?invert_in_darkmode&math=n >= 1">:
 
-$$ f \cdot Ps \cdot n + d \cdot (f \cdot Ps \cdot (1-(1-p)^n) - f \cdot p)- (c \cdot n - ((n-1) \cdot p^d)) $$
+<img src="https://render.githubusercontent.com/render/math?invert_in_darkmode&math=f \cdot Ps \cdot n + d \cdot (f \cdot Ps \cdot (1-(1-p)^n) - f \cdot p)- (c \cdot n - ((n-1) \cdot p^d))">
 
 ## Results
 
@@ -117,7 +114,9 @@ Example 1.
 
 
 
-![Example 1](https://raw.githubusercontent.com/trevelyan/saito-lite/blob/master/docs/svgs/ex1.svg?sanitize=true)
+![Example 1](https://raw.githubusercontent.com/trevelyan/saito-lite/master/docs/svgs/ex1.svg?sanitize=true)
+
+
 
 
 ---
@@ -133,7 +132,7 @@ Example 2.
 | PaySplit      | 0.5   |
 | PowSplit      | 0.5   |
 
-![Example 2](https://raw.githubusercontent.com/trevelyan/saito-lite/blob/master/docs/svgs/ex2.svg?sanitize=true)
+![Example 2](https://raw.githubusercontent.com/trevelyan/saito-lite/master/docs/svgs/ex2.svg?sanitize=true)
 
 ---
 Example 3.
@@ -145,7 +144,7 @@ Example 3.
 | Cost/GT       | 26    |
 | Depth         | 2     |
 
-![Example 3](https://raw.githubusercontent.com/trevelyan/saito-lite/blob/master/docs/svgs/ex3.svg?sanitize=true)
+![Example 3](https://raw.githubusercontent.com/trevelyan/saito-lite/master/docs/svgs/ex3.svg?sanitize=true)
 
 For all sets of parameters set we can see that while there is an optimal number of golden tickets per block to mine, this optimum still fails to return to the attacker more than they are spending.
 
