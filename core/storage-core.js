@@ -3,7 +3,7 @@
 const saito    = require('../lib/saito/saito');
 const fs       = require('fs-extra')
 const path     = require('path');
-
+const sqlite = require('sqlite');
 
 class Storage {
   constructor(app, data, dest="blocks") {
@@ -447,7 +447,7 @@ class Storage {
    * @param {*} callback
    */
   async queryDatabase(sql, params, callback) {
-    if (this.app.BROWSER == 1) { return; }
+    if (this.this.app.BROWSER == 1) { return; }
     var row = await this.db.get(sql, params)
     var err = {};
     if (row == undefined) { return null; }
