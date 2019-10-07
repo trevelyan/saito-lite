@@ -65,7 +65,7 @@ If the attacker finds a golden ticket that pays their own node they are paid the
 
 <img src="https://render.githubusercontent.com/render/math?invert_in_darkmode&math=f \cdot Ps \cdot p">
 
-But, the attacker is only getting the honest fees back, so for a single golden ticket solution the payout is the portion of fees that go to the routing reward $f\cdotPs& minus the fees the attacker put into the block <img src="https://render.githubusercontent.com/render/math?invert_in_darkmode&math=f\cdot p)">:
+But, the attacker is only getting the honest fees back, so for a single golden ticket solution the payout is the portion of fees that go to the routing reward <img src="https://render.githubusercontent.com/render/math?invert_in_darkmode&math=f\cdotPs"> minus the fees the attacker put into the block <img src="https://render.githubusercontent.com/render/math?invert_in_darkmode&math=f\cdot p">:
 
 <img src="https://render.githubusercontent.com/render/math?invert_in_darkmode&math=f \cdot Ps \cdot p - f \cdot p">
 
@@ -128,7 +128,7 @@ Example 2.
 | Attacker Fees | 0     |
 | GT Reward     | 50    |
 | Cost/GT       | 40    |
-| Depth         | 2     |
+
 | PaySplit      | 0.5   |
 | PowSplit      | 0.5   |
 
@@ -146,12 +146,17 @@ Example 3.
 
 ![Example 3](https://raw.githubusercontent.com/trevelyan/saito-lite/master/docs/svgs/ex3.svg?sanitize=true)
 
-For all sets of parameters set we can see that while there is an optimal number of golden tickets per block to mine, this optimum still fails to return to the attacker more than they are spending.
-
 ## Discussion
 
+In Example 1 we can see that as the miner increases their hashing toward an average of 1 golden ticket per block, their losses are reduced. Importantly the reward for the attack is _always_ negative.
 
+In Example 2 the attacker is simply mining, not attacking. In this instance the optimum reward is simply the difference between the reward for the golden ticket and the cost of producing one. Given difficulty will push toward mining a golden ticket every second block, an equilibrium will be reached where mining is porfitable.
 
+In Example 3, we can see that an attack would become profitable if the golden ticket cost falls below 26. Honest mining would also be profitable here. Defending the network would simply require mining profitably such that difficulty pushes the cost per goldent ticket above this threshold.
 
+In all instances the network remains secure, with attacks on the mechanism simply defended. At the same time the mechnism can find a profitable equilibirium for honest operators.
 
-Further work. It would be profitable to investigate savings that might be made 
+## Further Works
+
+Finiding a generalised proof of the security of the network would be prove interesting and fruitful work.
+
