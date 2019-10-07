@@ -1,28 +1,26 @@
 :root {
-  --saito-red: rgb(247, 31, 61);
-  --saito-skyline-grey: rgb(234, 234, 239);
-  --saito-cyber-black: rgb(28, 28, 35);
-  --saito-white: #ffffff;
+    --saito-red: rgb(247, 31, 61);
+    --saito-skyline-grey: rgb(234, 234, 239);
+    --saito-cyber-black: rgb(28, 28, 35);
+    --saito-white: #ffffff;
 }
 
 html {
     --text-color-normal: var(--saito-cyber-black);
     --backround-general: var(--saito-white);
+    --text-color-highlight: var(--saito-red);
 }
 
 html[data-theme='dark'] {
     --text-color-normal: var(--saito-skyline-grey);
     --backround-general: var(--saito-cyber-black);
+    --text-color-highlight: var(--saito-red);
 }
-
 
 @font-face {
     font-family: 'visuelt-black';
     src: url('visuelt-black.eot');
-    src: url('visuelt-black.eot?#iefix') format('embedded-opentype'),
-         url('visuelt-black.woff2') format('woff2'),
-         url('visuelt-black.woff') format('woff'),
-         url('visuelt-black.ttf') format('truetype');
+    src: url('visuelt-black.eot?#iefix') format('embedded-opentype'), url('visuelt-black.woff2') format('woff2'), url('visuelt-black.woff') format('woff'), url('visuelt-black.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
@@ -30,10 +28,7 @@ html[data-theme='dark'] {
 @font-face {
     font-family: 'visuelt-light';
     src: url('visuelt-light.eot');
-    src: url('visuelt-light.eot?#iefix') format('embedded-opentype'),
-         url('visuelt-light.woff2') format('woff2'),
-         url('visuelt-light.woff') format('woff'),
-         url('visuelt-light.ttf') format('truetype');
+    src: url('visuelt-light.eot?#iefix') format('embedded-opentype'), url('visuelt-light.woff2') format('woff2'), url('visuelt-light.woff') format('woff'), url('visuelt-light.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
@@ -41,19 +36,15 @@ html[data-theme='dark'] {
 @font-face {
     font-family: 'visuelt-medium';
     src: url('visuelt-medium.eot');
-    src: url('visuelt-medium.eot?#iefix') format('embedded-opentype'),
-         url('visuelt-medium.woff2') format('woff2'),
-         url('visuelt-medium.woff') format('woff'),
-         url('visuelt-medium.ttf') format('truetype');
+    src: url('visuelt-medium.eot?#iefix') format('embedded-opentype'), url('visuelt-medium.woff2') format('woff2'), url('visuelt-medium.woff') format('woff'), url('visuelt-medium.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 
-
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 html, body {
@@ -76,12 +67,12 @@ body {
     color: var(--text-color-normal);
 }
 
-button {
+button, .button {
     padding: 1em;
     background-color: var(--saito-cyber-black);
     border-radius: 5px;
     color: white;
-    font-size:1em;
+    font-size: 1em;
     font-family: 'visuelt-black';
 }
 
@@ -96,8 +87,7 @@ input[type=text], input[type=number] {
     height: 9vh;
     padding: 0 1em;
     background: var(--saito-red);
-   
-    /* sus and still out to jury */ 
+    /* sus and still out to jury */
     position: fixed;
     width: 100%;
     top: 0%;
@@ -124,22 +114,26 @@ input[type=text], input[type=number] {
     font-family: 'visuelt-black';
     padding: 1em;
     /* margin: 1em; */
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none;  /* IE 10+ */
-    
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
+    /* IE 10+ */
     /* Partially sus */
     overflow-y: scroll;
-    -webkit-overflow-scrolling: touch; /* enables “momentum” (smooth) scrolling */
-
+    -webkit-overflow-scrolling: touch;
+    /* enables “momentum” (smooth) scrolling */
     /* sus and still out to jury */
     height: 83vh;
-    margin-top: 9vh; 
+    margin-top: 9vh;
     margin-bottom: 9vh;
 }
 
-.main::-webkit-scrollbar { /* WebKit */
-    width: 0px;  /* Remove scrollbar space */
-    background: transparent;  /* Optional: just make scrollbar invisible */
+.main::-webkit-scrollbar {
+    /* WebKit */
+    width: 0px;
+    /* Remove scrollbar space */
+    background: transparent;
+    /* Optional: just make scrollbar invisible */
 }
 
 .container {
@@ -165,6 +159,7 @@ input[type=text], input[type=number] {
 .wallet-container {
     font-family: 'visuelt-medium';
 }
+
 .wallet-container-row {
     display: flex;
     justify-content: space-between;
@@ -228,8 +223,8 @@ input[type=text], input[type=number] {
 }
 
 /** CHAT ROOM **/
-.chat-room {
-}
+
+.chat-room {}
 
 .chat-room-header {
     grid-template-columns: 5.2em auto 2em 3.2em;
@@ -290,7 +285,7 @@ input[type=text], input[type=number] {
     background: var(--saito-cyber-black);
     color: white;
     justify-self: right;
-} 
+}
 
 /* .chat-room-message-myself:after {
     display: block;
@@ -306,7 +301,6 @@ input[type=text], input[type=number] {
     border-top: solid 8px transparent;
 } */
 
-
 .chat-room-footer {
     padding: 0 0 0 0.5em;
     display: flex;
@@ -314,14 +308,14 @@ input[type=text], input[type=number] {
     align-items: center;
 }
 
-.chat-room-input{
+.chat-room-input {
     display: grid;
     grid-template-columns: auto 3em;
     align-items: center;
     width: 100%;
 }
 
-.chat-room-input > textarea {
+.chat-room-input>textarea {
     height: 2.75em;
     font-size: 1em;
     padding: 10px 5px;
@@ -338,7 +332,6 @@ input[type=text], input[type=number] {
     border-radius: 100px;
     cursor: pointer;
 }
-
 
 /** ARCADE CSS **/
 
@@ -381,8 +374,8 @@ input[type=text], input[type=number] {
 }
 
 .games-content {
-     display: grid;
-     grid-gap: 0.25em;
+    display: grid;
+    grid-gap: 0.25em;
 }
 
 .games-button {
@@ -390,15 +383,13 @@ input[type=text], input[type=number] {
     align-self: center;
 }
 
-.accept-button {
-}
+.accept-button {}
 
 .delete-button {
     max-height: 3.5em;
     align-self: center;
     background: var(--saito-red);
 }
-
 
 /** FORUM CSS **/
 
@@ -417,7 +408,7 @@ input[type=text], input[type=number] {
 }
 
 .forum-comments {
-    font-family: visuelt-medium; 
+    font-family: visuelt-medium;
     margin-top: 10px;
 }
 
@@ -444,7 +435,6 @@ input[type=text], input[type=number] {
     width: 100%;
     margin-top: 1em;
 }
-
 
 /** COMPONENTS CSS **/
 
@@ -508,7 +498,7 @@ input[type=text], input[type=number] {
     justify-content: space-between;
 }
 
-.settings-dns-row > div {
+.settings-dns-row>div {
     font-family: visuelt-light;
 }
 
@@ -516,8 +506,7 @@ input[type=text], input[type=number] {
     float: right;
 }
 
-
-/** Email **/ 
+/** Email **/
 
 .email-content {
     height: 78vh;
@@ -539,6 +528,72 @@ input[type=text], input[type=number] {
     font-size: 1em;
 }
 
+.explorer-main {
+    margin: 100px 0;
+    padding: 0 10px;
+    line-height: 1.6em;
+    /*font-size: 1.2em;*/
+    font-family: "visuelt-medium"
+}
 
+.explorer-main table {
+    border-spacing: 0;
+}
 
+.explorer-main table tr:hover {
+    background: #bbbbbb;
+}
 
+.explorer-main td {
+    padding: 10px 5px;
+}
+
+.explorer-main th {
+    text-align: left;
+}
+
+.explorer-main a {
+    text-decoration: underscore;
+    color: var(--text-color-highlight);
+    display: inline-block;
+}
+
+.explorer-main h4 {
+    display: inline-block;
+    min-width: 200px;
+}
+
+.explorer-main h3 {
+    margin: 20px 0 10px 0;
+}
+
+.explorer-main i {
+    margin: 0 10px;
+}
+
+li.jsontree_node {
+    list-style: none;
+}
+
+.json, #block-list, .block_transactions_table {
+    font-family: monospace;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background: #eee;
+    padding: 10px;
+    overflow: auto;
+    width: 99%;
+    max-width: 850px;
+}
+
+input[type=text] {
+    height: 3em;
+    width: 75%;
+    margin-top: 1px;
+}
+
+a.button {
+    color: var(--saito-white);
+    text-decoration: none;
+    margin-top: 10px;
+}
