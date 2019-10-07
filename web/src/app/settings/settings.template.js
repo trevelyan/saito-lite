@@ -30,6 +30,7 @@ export const SettingsTemplate = () => {
                      </div>
                  </div>
             </div>
+            <input id="file-input" class="file-input" type="file" name="name" style="display:none;" />
         </div>
     `;
 }

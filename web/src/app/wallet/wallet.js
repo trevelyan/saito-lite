@@ -3,10 +3,10 @@ import QRCode from './qrcode';
 import { WalletTemplate } from './wallet.template.js';
 
 export default class Wallet {
-    constructor() {
+    constructor(app) {
         this.id = "bearguy@saito";
-        this.balance = "1000.00000000";
-        this.address = "dDgP4TpJ3GCCKkHn3MxEwPHx1hGNzaVFUrUDbczw7Tmd";
+        this.balance = app.saito.wallet.wallet.balance;
+        this.address = app.saito.wallet.returnPublicKey();
         this.qrcode = {};
 
         return this;

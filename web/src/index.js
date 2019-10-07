@@ -5,8 +5,12 @@ import Storage from './saito/storage-web';
 async function init() {
   let config = {
     storage: Storage,
-    mod_paths: ['chat/lite/index.js', 'wallet/wallet.js'],
-    peers:[{"host":"localhost","port":12101,"protocol":"http","publickey":"d98ERyo7NaFwxpfkYj7g7YKwqVXaCaTvJ33KtA7LBruH","synctype":"lite"}]
+    mod_paths: [
+      'chat/lite/index.js',
+      'twilight/lite/twilight.js',
+      'wallet/wallet.js'
+    ],
+    peers:[{"host":"localhost","port":12101,"protocol":"http","publickey":"","synctype":"lite"}]
   };
 
   let app = new App();
