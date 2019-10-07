@@ -27,6 +27,7 @@ export default class App {
 
         // Faucet testing
         this.getTokens();
+        this.getArcadeGames();
     }
 
     initServiceWorker() {
@@ -57,6 +58,16 @@ export default class App {
         let msg = {};
         msg.data = {address: this.saito.wallet.returnPublicKey()};
         msg.request = 'get tokens';
+
+        setTimeout(() => {
+            this.saito.network.sendRequest(msg.request, msg.data);
+        }, 1000);
+    }
+
+    getArcadeGames() {
+        let msg = {};
+        msg.data = {};
+        msg.request = 'arcade request games';
 
         setTimeout(() => {
             this.saito.network.sendRequest(msg.request, msg.data);

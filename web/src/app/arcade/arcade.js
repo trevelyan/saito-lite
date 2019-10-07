@@ -1,24 +1,26 @@
-import { ArcadeTemplate } from './arcade.template.js';
-import { ArcadeAdd } from './arcade-add/arcade-add.js';
+import { ArcadeList } from './arcade-list/arcade-list.js';
+import { ArcadeListRowTemplate } from './arcade-list/arcade-list-row.template.js';
 
 export default class Arcade {
     constructor(app) {
         this.app = app;
-        // this.saito = app.saito;
+        this.arcade = app.saito.modules.returnModule("Arcade");
+        this.bindDOMFunctionsToModule();
+
         return this;
     }
 
     render() {
-        // let arcade = ;
-        let main = document.querySelector('.main');
-        main.innerHTML = ArcadeTemplate();
-        this.attachEvents(this);
+        ArcadeList.render(this);
     }
 
-    attachEvents(app) {
-        document.querySelector('#arcade.create-button')
-            .addEventListener('click', (e) => {
-                ArcadeAdd.render(app);
-            });
+    bindDOMFunctionsToModule() {
+        this.arcade.addRowToGameTable = this.addRowToGameTable.bind(this.arcade);
+    }
+
+    addRowToGameTable(row) {
+        let { game, player } = row;
+        let arcade_row = ArcadeListRowTemplate(game, player, 'accept');
+        document.querySelector('.games-table').innerHTML += arcade_row;
     }
 }
