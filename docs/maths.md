@@ -117,7 +117,7 @@ Example 1.
 
 
 
-![Example 1](https://raw.githubusercontent.com/SaitoTech/saito/master/docs/whitepaper/svgs/ex1.svg?sanitize=true)
+![Example 1](https://raw.githubusercontent.com/trevelyan/saito-lite/blob/master/docs/svgs/ex1.svg?sanitize=true)
 
 
 ---
@@ -133,7 +133,7 @@ Example 2.
 | PaySplit      | 0.5   |
 | PowSplit      | 0.5   |
 
-
+![Example 2](https://raw.githubusercontent.com/trevelyan/saito-lite/blob/master/docs/svgs/ex2.svg?sanitize=true)
 
 ---
 Example 3.
@@ -145,6 +145,7 @@ Example 3.
 | Cost/GT       | 26    |
 | Depth         | 2     |
 
+![Example 3](https://raw.githubusercontent.com/trevelyan/saito-lite/blob/master/docs/svgs/ex3.svg?sanitize=true)
 
 For all sets of parameters set we can see that while there is an optimal number of golden tickets per block to mine, this optimum still fails to return to the attacker more than they are spending.
 
