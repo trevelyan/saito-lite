@@ -28,7 +28,7 @@ class ForumCore extends ModTemplate {
   onConfirmation(blk, tx, conf, app) {
     if (tx.transaction.msg.module != "Forum") { return; }
     if (conf == 0) {
-      forum = app.modules.returnModule("Forum");
+      let forum = app.modules.returnModule("Forum");
       switch (tx.transaction.msg.type) {
         case 'post':
           forum.savePost(tx);
@@ -223,6 +223,10 @@ class ForumCore extends ModTemplate {
     } catch(err) {
       console.log(err);
     }
+  }
+
+  shouldAffixCallbackToModule(modname) {
+    if (modname == "Forum") { return 1; }
   }
 }
 
