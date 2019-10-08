@@ -6,7 +6,9 @@ async function init() {
   let config = {
     storage: Storage,
     mod_paths: [
-      'chat/lite/index.js',
+      'arcade/lite/arcade-lite.js',
+      'chat/lite/chat-lite.js',
+      'forum/lite/forum-lite.js',
       'twilight/lite/twilight.js',
       'wallet/wallet.js'
     ],
