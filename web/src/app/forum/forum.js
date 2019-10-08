@@ -5,9 +5,10 @@ export default class Forum {
     constructor(app) {
         this.app = app;
         this.forum = app.saito.modules.returnModule('Forum');
-        this.forum.posts = [
-            { title:'New Post', author: 'bearguy@saito', comments: [{},{},{}], votes: 10 },
-        ]
+        // this.forum.posts = [
+        //     { title:'New Post', author: 'bearguy@saito', comments: [{},{},{}], votes: 10 },
+        // ];
+        this.bindDOMFunctionsToModule();
     }
 
     initialize() {
@@ -29,6 +30,6 @@ export default class Forum {
     }
 
     renderForumPostList() {
-        ForumList.render(this);
+        // ForumList.render(this);
     }
 }

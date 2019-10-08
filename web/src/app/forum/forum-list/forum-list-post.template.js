@@ -1,15 +1,15 @@
-export const ForumListPostTemplate = ({title, author, comments, votes}) => {
+export const ForumListPostTemplate = ({title, author, comments, votes}, index) => {
   return `
-    <div class="forum-row">
+    <div id="${index}" class="forum-row">
       <div class="forum-image">
           <img src="logo-color.svg">
       </div>
       <div class="forum-content">
           <div class="forum-title">${title}</div>
-          <div class="forum-author">${author}</div>
+          <div class="forum-author">${author.substring(0, 16)}</div>
           <div class="forum-comments">
               <i class="icon-small fas fa-comment"></i>
-              <span class="forum-comments-number">${comments.length}</span> Comments
+              <span class="forum-comments-number">${comments}</span> Comments
           </div>
       </div>
       <div class="forum-voting">

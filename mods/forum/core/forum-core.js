@@ -50,6 +50,11 @@ class ForumCore extends ModTemplate {
       case 'forum request all':
         this.handleForumPostsResponse(app, msg, peer, callback);
         break;
+      case 'forum request channel':
+        break;
+      case 'forum request comments':
+        this.handleRequstComments(app, msg, peer, callback);
+        break;
       case 'forum vote':
         this.handleForumVote(app, msg, peer, callback);
         break;
@@ -97,6 +102,64 @@ class ForumCore extends ModTemplate {
       peer.sendRequest("reddit load null", {});
     }
     return;
+  }
+
+  async handleRequstComments(app, msg, peer, callback) {
+    // get post id for comments
+    var pid = msg.data.post_id;
+    var sql = "SELECT * FROM comments WHERE post_id = $pid ORDER BY unixtime ASC";
+
+    try {
+      var rows = await this.db.all(sql, { $pid : pid });
+    } catch(err) {
+      console.log(err);
+    }
+
+    if (rows != null) {
+      var message             = {};
+      message.request         = "forum response comments";
+      message.data            = {}
+      message.data.post_id    = post_id;
+      message.data.comments   = [];
+
+      for (var fat = 0; fat <= rows.length - 1; fat++) {
+        let {id, tx, unixtime, votes} = rows[fat];
+        tx = JSON.parse(tx)
+        let {identifier, post_id, parent_id, subreddit, text} = tx.msg;
+
+        let comment = {
+          id: id,
+          text: text,
+          author: identifier,
+          publickey: tx.from[0].add,
+          votes: votes,
+          unixtime: unixtime,
+          post_id: post_id,
+          parent_id: parent_id.toString(),
+          subreddit: subreddit,
+          sig: tx.sig,
+          tx
+        }
+
+        if (comment.parent_id === '0') {
+          message.data.comments = [...message.data.comments, {
+            data: comment,
+            children: []
+          }]
+          message.data.comments.sort((a,b) =>  b.data.votes - a.data.votes)
+        } else {
+          this.branchTraverse(message.data.comments, comment)
+        }
+      }
+      peer.sendRequest(message.request, message.data);
+    }
+    // else {
+    //   var message             = {};
+    //   message.request         = "forum response null";
+    //   message.data            = {};
+    //   message.data.msg        = "There don't seem to be any comments. Be the first to post!"
+    //   peer.sendRequest(message.request, message.data);
+    // }
   }
 
   async handleForumVote(app, msg, peer, callback) {

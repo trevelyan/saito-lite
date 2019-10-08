@@ -492,6 +492,56 @@ input[type=text], input[type=number] {
     color: black;
 }
 
+/** FORUM DETAIL CSS **/
+
+.forum-detail > section {
+    padding: 10px 0px;
+}
+
+.forum-header > .forum-row {
+    padding: 0px 0px 10px 0px;
+    height: 5em;
+}
+
+#forum-detail-text {
+    padding: 10px 0px;
+    min-height: 15vh;
+}
+
+#forum-post-comment {
+    display: grid;
+    grid-gap: 1em;
+}
+
+#forum-comment-text-input {
+    padding: 10px 7.5px;
+    height: 20vh;
+    border: 1px solid lightgrey;
+    border-radius: 3px;
+}
+
+.forum-comment {
+    display: grid;
+    grid-template-columns: auto 2.5rem;
+}
+
+.forum-voting {
+    margin-left: 1.25em;
+}
+
+#forum-comments-table {
+    display: grid;
+    row-gap: 1.5em;
+}
+
+#forum-comment-buttons {
+    font-size: 0.9em;
+}
+
+#forum-comment-text {
+    padding: 5px 0px;
+}
+
 /** WALLET CSS **/
 
 #qrcode {
