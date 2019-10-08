@@ -10,6 +10,7 @@ class ForumCore extends ModTemplate {
     this.name = "Forum";
 
     this.db = {};
+    this.post_limiter = 25;
   }
 
   // Install Module //
@@ -58,15 +59,8 @@ class ForumCore extends ModTemplate {
   }
 
   async handleForumPostsResponse(app, msg, peer, callback) {
-    var sr = msg.data.subreddit.toLowerCase();
-    var so = msg.data.offset;
-
     var sql    = "SELECT * FROM posts ORDER BY unixtime_rank DESC LIMIT $ppp OFFSET $offset";
-    var params = { $ppp : this.reddit.posts_per_page , $offset : so };
-    if (sr != "" && sr != null) {
-      sql = "SELECT * FROM posts WHERE subreddit = $sr ORDER BY unixtime_rank DESC LIMIT $ppp OFFSET $offset";
-      params = { $sr : sr ,$ppp : this.reddit.posts_per_page ,  $offset : so };
-    }
+    var params = { $ppp : this.post_limiter , $offset : 0 };
     try {
       var rows = await this.db.all(sql, params);
     } catch(err) {
@@ -75,7 +69,7 @@ class ForumCore extends ModTemplate {
     if (rows != null) {
       if (rows.length != 0) {
         let message                 = {};
-            message.request         = "reddit payload";
+            message.request         = "forum response payload";
             message.data            = [];
 
         message.data = rows.map(row => {

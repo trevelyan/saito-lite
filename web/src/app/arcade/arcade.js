@@ -10,6 +10,16 @@ export default class Arcade {
         return this;
     }
 
+    initialize() {
+        let msg = {};
+        msg.data = {};
+        msg.request = 'arcade request games';
+
+        setTimeout(() => {
+            this.app.saito.network.sendRequest(msg.request, msg.data);
+        }, 1000);
+    }
+
     render() {
         ArcadeList.render(this);
     }

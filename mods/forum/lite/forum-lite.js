@@ -12,7 +12,7 @@ class ForumLite extends ModTemplate {
 
   handlePeerRequest(app, msg, peer, mycallback) {
     switch (msg.request) {
-      case 'forum payload':
+      case 'forum response payload':
         this.posts = msg.data;
         this.renderForumPostList();
         break;

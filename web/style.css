@@ -599,11 +599,13 @@ input[type=text], input[type=number] {
 }
 
 .explorer-main {
-    margin: 100px 0;
+    margin-top: 75px;
     padding: 0 10px;
     line-height: 1.6em;
-    /*font-size: 1.2em;*/
-    font-family: "visuelt-medium"
+    font-family: "visuelt-medium";
+    height: 91vh;
+    overflow: scroll;
+    padding: 1em 12px;
 }
 
 .explorer-main table {

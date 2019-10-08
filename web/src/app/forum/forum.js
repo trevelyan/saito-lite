@@ -10,10 +10,25 @@ export default class Forum {
         ]
     }
 
+    initialize() {
+        let msg = {};
+        msg.data = {};
+        msg.request = 'forum request all';
+
+        setTimeout(() => {
+            this.app.saito.network.sendRequest(msg.request, msg.data);
+        }, 1000);
+    }
+
     render() {
         ForumList.render(this);
     }
 
-    attachEvents() {
+    bindDOMFunctionsToModule() {
+        this.forum.renderForumPostList = this.renderForumPostList.bind(this.forum);
+    }
+
+    renderForumPostList() {
+        ForumList.render(this);
     }
 }

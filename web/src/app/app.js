@@ -21,13 +21,19 @@ export default class App {
         this.email = new Email(this);
         this.settings = new Settings(this);
 
+        this.initMods();
+
         this.initServiceWorker();
         this.initHeader();
         this.initFooter();
 
         // Faucet testing
         this.getTokens();
-        this.getArcadeGames();
+    }
+
+    initMods() {
+        this.forum.initialize();
+        this.arcade.initialize();
     }
 
     initServiceWorker() {
@@ -64,14 +70,7 @@ export default class App {
         }, 1000);
     }
 
-    getArcadeGames() {
-        let msg = {};
-        msg.data = {};
-        msg.request = 'arcade request games';
-
-        setTimeout(() => {
-            this.saito.network.sendRequest(msg.request, msg.data);
-        }, 1000);
-    }
+    // getArcadeGames() {
+    // }
 
 }
