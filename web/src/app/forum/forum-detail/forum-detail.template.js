@@ -1,4 +1,4 @@
-export const ForumDetailTemplate = (post) => {
+export const ForumDetailTemplate = ({title, author, subreddit, votes, text}) => {
   return `
     <div class="forum-detail">
       <section class="forum-header">
@@ -7,19 +7,22 @@ export const ForumDetailTemplate = (post) => {
             <img src="logo-color.svg">
           </div>
           <div class="forum-content">
-              <div class="forum-title">${post.title}</div>
-              <div class="forum-author">${post.author.substring(0, 16)}</div>
+              <div class="forum-title">${title}</div>
+              <div class="forum-meta-data">
+                <div class="forum-author">from: ${author.substring(0, 16)}</div>
+                <p class="forum-channel">/c/${subreddit}</p>
+              </div>
           </div>
           <div class="forum-voting">
             <i class="icon-small fas fa-arrow-up"></i>
-              <div class="forum-score">${post.votes}</div>
+              <div class="forum-score">${votes}</div>
             <i class="icon-small fas fa-arrow-down"></i>
           </div>
         </div>
       </section>
       <section id="forum-detail-text">
         <p id="forum-discussion">
-          ${post.text}
+          ${text}
         </p>
       </section>
       <section id="forum-post-comment">

@@ -17,8 +17,16 @@ class ForumCore extends ModTemplate {
   async installModule() {
     try {
       this.db = await sqlite.open('./data/forum.sq3');
-      let forum_sql = fs.readFileSync('./data/sql/forum.sql').toString();
-      await this.db.run(forum_sql, {});
+
+      let forum_posts_sql = fs.readFileSync('./data/sql/forum-posts.sql').toString();
+      let forum_comments_sql = fs.readFileSync('./data/sql/forum-comments.sql').toString();
+      let forum_votes_sql = fs.readFileSync('./data/sql/forum-votes.sql').toString();
+
+      await Promise.all([
+        this.db.run(forum_posts_sql, {}),
+        this.db.run(forum_comments_sql, {}),
+        this.db.run(forum_votes_sql, {}),
+      ]);
     } catch (err) { console.error(err); }
   };
 
@@ -106,11 +114,11 @@ class ForumCore extends ModTemplate {
 
   async handleRequstComments(app, msg, peer, callback) {
     // get post id for comments
-    var pid = msg.data.post_id;
-    var sql = "SELECT * FROM comments WHERE post_id = $pid ORDER BY unixtime ASC";
+    var post_id = msg.data.post_id;
+    var sql = "SELECT * FROM comments WHERE post_id = $post_id ORDER BY unixtime ASC";
 
     try {
-      var rows = await this.db.all(sql, { $pid : pid });
+      var rows = await this.db.all(sql, { $post_id : post_id });
     } catch(err) {
       console.log(err);
     }
@@ -141,7 +149,7 @@ class ForumCore extends ModTemplate {
           tx
         }
 
-        if (comment.parent_id === '0') {
+        if (comment.parent_id === '') {
           message.data.comments = [...message.data.comments, {
             data: comment,
             children: []
@@ -153,13 +161,6 @@ class ForumCore extends ModTemplate {
       }
       peer.sendRequest(message.request, message.data);
     }
-    // else {
-    //   var message             = {};
-    //   message.request         = "forum response null";
-    //   message.data            = {};
-    //   message.data.msg        = "There don't seem to be any comments. Be the first to post!"
-    //   peer.sendRequest(message.request, message.data);
-    // }
   }
 
   async handleForumVote(app, msg, peer, callback) {
@@ -218,6 +219,22 @@ class ForumCore extends ModTemplate {
     }
   }
 
+  branchTraverse(branch, comment) {
+    branch.forEach(node => {
+      if (node.data.sig === comment.parent_id) {
+        node.children.push({
+          data: comment,
+          children: []
+        })
+        node.children.sort((a,b) =>  b.data.votes - a.data.votes)
+        return
+      }
+      else if (node.children !== []) {
+        this.branchTraverse(node.children, comment)
+      }
+    })
+  }
+
   async savePost(tx) {
     console.log("save post");
     var myhref = tx.transaction.msg.link;
@@ -247,9 +264,6 @@ class ForumCore extends ModTemplate {
       console.log(err);
     }
 
-    // //////////////////////////////
-    // // generate new cached page //
-    // //////////////////////////////
     //
     // TODO: Image module should be used to create and save snapshots, along with other things
   }

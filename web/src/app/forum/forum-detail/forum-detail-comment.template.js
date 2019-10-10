@@ -15,13 +15,13 @@ export const ForumDetailCommentTemplate = ({author, publickey, text, votes, sig}
     <div id="${sig}" class="forum-comment" style="margin-left: ${margin}px">
       <div class="forum-comment-content">
         <div id="forum-comment-author">
-          ${publickey}
+          ${publickey.substring(0,16)}
         </div>
         <p id="forum-comment-text">
           ${text}
         </p>
-        <div id="forum-comment-buttons">
-          <i class="icon-small fas fa-comment"></i> Reply
+        <div id="${sig}" class="forum-comment-buttons">
+          <i id="${sig}" class="icon-small fas fa-comment"></i> Reply
         </div>
       </div>
       <div class="forum-voting">

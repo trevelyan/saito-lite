@@ -8,74 +8,7 @@ class ForumLite extends ModTemplate {
     this.name = "Forum";
 
     this.posts = [];
-    this.comments = {
-      0: [
-        {
-          data: {
-            author: 'bearguy@saito',
-            publickey: 'asdflkjasknaasdf',
-            text: 'This is a comment that needs rendering',
-            votes: 4,
-            sig: 'NEWASDFASDCASDF'
-          },
-          children: [
-            {
-              data: {
-                author: 'bearguy@saito',
-                publickey: 'asdflkjasknaasdf',
-                text: 'This is a nested comment that needs rendering',
-                votes: 4,
-                sig: 'NEWASDFASDCASDF'
-              },
-              children: [
-                {
-                  data: {
-                    author: 'bearguy@saito',
-                    publickey: 'asdflkjasknaasdf',
-                    text: 'This is another nested comment that needs rendering',
-                    votes: 4,
-                    sig: 'NEWASDFASDCASDF'
-                  },
-                  children: []
-                }
-              ]
-            }
-          ]
-        },
-        {
-          data: {
-            author: 'bearguy@saito',
-            publickey: 'asdflkjasknaasdf',
-            text: 'This is a comment that needs rendering',
-            votes: 4,
-            sig: 'NEWASDFASDCASDF'
-          },
-          children: [
-            {
-              data: {
-                author: 'bearguy@saito',
-                publickey: 'asdflkjasknaasdf',
-                text: 'This is a nested comment that needs rendering',
-                votes: 4,
-                sig: 'NEWASDFASDCASDF'
-              },
-              children: [
-                {
-                  data: {
-                    author: 'bearguy@saito',
-                    publickey: 'asdflkjasknaasdf',
-                    text: 'This is another nested comment that needs rendering',
-                    votes: 4,
-                    sig: 'NEWASDFASDCASDF'
-                  },
-                  children: []
-                }
-              ]
-            }
-          ]
-        }
-      ],
-    }
+    this.comments = {};
   }
 
   handlePeerRequest(app, msg, peer, mycallback) {
@@ -89,15 +22,30 @@ class ForumLite extends ModTemplate {
         break;
       case 'forum response comments':
         this.comments[msg.data.post_id] = msg.data.comments;
-        this.renderForumComments();
+        this.renderForumComments(this.comments[msg.data.post_id]);
+        this.forumDetailAttachEvents(msg.data.post_id);
         break;
       default:
         break;
     }
   }
 
+  findComment(comments, comment_id) {
+    for (let i = 0; i < comments.length; i++) {
+      if (comments[i].data.sig == comment_id) {
+        return comments[i];
+      } else {
+        return this.findComment(comments[i].children, comment_id)
+      }
+    }
+
+    // couldn't find anything, return null
+    return null;
+  }
+
   renderForumPostList() {}
   renderForumComments() {}
+  forumDetailAttachEvents() {}
 }
 
 module.exports = ForumLite;

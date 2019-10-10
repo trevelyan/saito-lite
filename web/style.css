@@ -52,10 +52,6 @@ html, body {
     overflow: hidden;
 }
 
-/* h2 {
-    text-align: center;
-} */
-
 p {
     font-family: 'visuelt-light';
 }
@@ -273,38 +269,11 @@ input[type=text], input[type=number] {
     justify-self: left;
 }
 
-/*.chat-room-message-others:after {
-    display: block;
-    position: relative;
-    content: '';
-    width: 0px;
-    height: 0px;
-    right: 12%;
-    bottom: 24%;
-    border-right: solid 1em var(--saito-skyline-grey);
-    border-bottom: solid 8px transparent;
-    border-top: solid 8px transparent;
-} */
-
 .chat-room-message-myself {
     background: var(--saito-cyber-black);
     color: white;
     justify-self: right;
 }
-
-/* .chat-room-message-myself:after {
-    display: block;
-    position: relative;
-    float: right;
-    content: ' ';
-    width: 0px;
-    height: 0px;
-    left: 12%;
-    bottom: 24%;
-    border-left: solid 1em var(--saito-cyber-black);
-    border-bottom: solid 8px transparent;
-    border-top: solid 8px transparent;
-} */
 
 .chat-room-footer {
     padding: 0 0 0 0.5em;
@@ -320,7 +289,7 @@ input[type=text], input[type=number] {
     width: 100%;
 }
 
-.chat-room-input>textarea {
+.chat-room-input > textarea {
     height: 2.75em;
     font-size: 1em;
     padding: 10px 5px;
@@ -442,14 +411,24 @@ input[type=text], input[type=number] {
 
 .forum-row {
     display: grid;
-    grid-template-columns: 2.5em auto 2em;
+    grid-template-columns: 2.5em auto 1em;
     grid-column-gap: 1em;
     padding: 10px 0px;
     border-bottom: 1px solid var(--saito-skyline-grey);
 }
 
+.forum-meta-data {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
 .forum-author {
     font-family: visuelt-light;
+}
+
+.forum-channel {
+    color: darkgrey;
 }
 
 .forum-comments {
@@ -522,11 +501,25 @@ input[type=text], input[type=number] {
 
 .forum-comment {
     display: grid;
-    grid-template-columns: auto 2.5rem;
+    grid-template-columns: auto 1rem;
+    row-gap: 1em;
 }
 
-.forum-voting {
-    margin-left: 1.25em;
+.forum-comment > textarea {
+    border: 1px solid lightgrey;
+    border-radius: 3px;
+    padding: 10px 7px;
+    grid-column: 1 / 3;
+    height: 10em;
+}
+
+.forum-comment > button {
+    grid-column: 1 / 3;
+}
+
+.forum-comment-content {
+    display: grid;
+    row-gap: 5px;
 }
 
 #forum-comments-table {
@@ -534,7 +527,7 @@ input[type=text], input[type=number] {
     row-gap: 1.5em;
 }
 
-#forum-comment-buttons {
+.forum-comment-buttons {
     font-size: 0.9em;
 }
 

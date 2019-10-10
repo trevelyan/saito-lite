@@ -35,6 +35,21 @@ export const ForumAdd = {
     newtx.transaction.msg = msg;
     newtx = mod.app.saito.wallet.signTransaction(newtx);
     mod.app.saito.network.propagateTransaction(newtx);
+
+    // add it to our posts
+    mod.forum.posts.unshift({
+      id: mod.forum.posts.length + 1,
+      tx: newtx,
+      author: "Me",
+      title: msg.title,
+      link: msg.link,
+      text: msg.text,
+      subreddit: msg.subreddit,
+      post_id: newtx.transaction.sig,
+      unixtime: new Date().getTime(),
+      comments: 0,
+      votes: 0,
+    });
   },
 
   postParamsCheck(msg) {
