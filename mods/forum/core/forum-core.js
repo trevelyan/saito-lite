@@ -18,9 +18,9 @@ class ForumCore extends ModTemplate {
     try {
       this.db = await sqlite.open('./data/forum.sq3');
 
-      let forum_posts_sql = fs.readFileSync('./data/sql/forum-posts.sql').toString();
-      let forum_comments_sql = fs.readFileSync('./data/sql/forum-comments.sql').toString();
-      let forum_votes_sql = fs.readFileSync('./data/sql/forum-votes.sql').toString();
+      let forum_posts_sql = fs.readFileSync('./data/sql/forum/forum-posts.sql').toString();
+      let forum_comments_sql = fs.readFileSync('./data/sql/forum/forum-comments.sql').toString();
+      let forum_votes_sql = fs.readFileSync('./data/sql/forum/forum-votes.sql').toString();
 
       await Promise.all([
         this.db.run(forum_posts_sql, {}),

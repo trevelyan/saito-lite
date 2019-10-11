@@ -7,29 +7,30 @@ import { ChatRoomFooterTemplate } from './chatroom-footer.template.js';
 import { ChatRoomMessageTemplate } from './chatroom-message.template.js';
 
 export const ChatRoom = {
-    render(mod, room, room_name) {
+    render(mod, room) {
         let main = document.querySelector('.main');
         main.innerHTML = ChatRoomTemplate();
 
         room.messages.forEach(room_message => {
             let { id, message, author, timestamp } = room_message;
-            document.querySelector('.chat-room-content').innerHTML += ChatRoomMessageTemplate(id, message, author, timestamp, 'others');
+            document.querySelector('.chat-room-content').innerHTML
+                += ChatRoomMessageTemplate(id, message, author, timestamp, 'others');
         })
 
         let header = document.querySelector('.header');
         header.classList.remove("header-home");
         header.classList.add("chat-room-header");
-        header.innerHTML = ChatRoomHeaderTemplate(room_name);
+        header.innerHTML = ChatRoomHeaderTemplate(room.name);
 
         let footer = document.querySelector('.footer');
         footer.classList.remove("nav-bar");
         footer.classList.add("chat-room-footer");
         footer.innerHTML = ChatRoomFooterTemplate();
 
-        this.attachEvents(mod);
+        this.attachEvents(mod, room);
     },
 
-    attachEvents(mod) {
+    attachEvents(mod, room) {
         let renderDefaultHeaderAndFooter = (mod) => {
             // header
             let header = document.querySelector('.header');
@@ -70,7 +71,7 @@ export const ChatRoom = {
 
                     message_input.value = '';
 
-                    let newtx = this.createMessage(mod.saito, 'ALL', msg);
+                    let newtx = this.createMessage(mod.saito, room.room_id, msg);
                     this.sendMessage(mod.saito, newtx);
                     mod.chat.addMessageToRoom(newtx);
 
