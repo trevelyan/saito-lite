@@ -204,6 +204,7 @@ export const ForumDetail = {
               };
               parent_comment_content.children.unshift(new_comment);
               this.renderComments(this.comments[post_id]);
+              this.forumDetailAttachEvents(post_id);
             });
 
             reply_button.appendChild(document.createTextNode("POST"));

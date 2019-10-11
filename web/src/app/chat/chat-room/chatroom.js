@@ -13,8 +13,9 @@ export const ChatRoom = {
 
         room.messages.forEach(room_message => {
             let { id, message, author, timestamp } = room_message;
+            let type = mod.saito.wallet.returnPublicKey() == author ? 'myself' : 'others';
             document.querySelector('.chat-room-content').innerHTML
-                += ChatRoomMessageTemplate(id, message, author, timestamp, 'others');
+                += ChatRoomMessageTemplate(id, message, author, timestamp, type);
         })
 
         let header = document.querySelector('.header');
