@@ -75,7 +75,7 @@ Hashing to find n solutions yields an expected outcome of:
 
 Given also that the attacker is waiting d blocks to hash, to optimise the number of blocks paying out in their favor, the expected routing reward becomes:
 
-<img src="https://render.githubusercontent.com/render/math?invert_in_darkmode&math=d \cdot (f \cdot Ps \cdot (1-(1-p)^n) - f \cdot p">
+<img src="https://render.githubusercontent.com/render/math?invert_in_darkmode&math=d \cdot (f \cdot Ps \cdot (1-(1-p)^n) - f \cdot p)">
 
 
 
